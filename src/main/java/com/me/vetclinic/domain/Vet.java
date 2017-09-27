@@ -8,6 +8,7 @@ import java.util.List;
  */
 @Entity
 public class Vet extends User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

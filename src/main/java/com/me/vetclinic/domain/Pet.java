@@ -1,7 +1,5 @@
 package com.me.vetclinic.domain;
 
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -11,14 +9,20 @@ import java.util.Objects;
  */
 @Entity
 public class Pet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Enumerated(EnumType.STRING)
     private PetType type;
     private String name;
     private double weight;
     private LocalDate dateOfBirth;
+
+    @ManyToOne
+    @JoinColumn(name = "pet_owner_id", referencedColumnName = "ID")
+    private PetOwner petOwner;
 
     public Long getId() {
         return id;
@@ -58,6 +62,25 @@ public class Pet {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public PetOwner getPetOwner() {
+        return petOwner;
+    }
+
+    public void setPetOwner(PetOwner petOwner) {
+        this.petOwner = petOwner;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", weight=" + weight +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
     }
 
     @Override
