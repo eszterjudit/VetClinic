@@ -16,7 +16,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
 /**
  * Created by totheszter on 2017. 02. 05..
  */

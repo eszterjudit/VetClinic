@@ -1,9 +1,7 @@
 package com.me.vetclinic.bootstrap;
 
-import com.me.vetclinic.domain.Pet;
-import com.me.vetclinic.domain.PetOwner;
-import com.me.vetclinic.domain.PetType;
-import com.me.vetclinic.domain.Vet;
+import com.me.vetclinic.domain.*;
+import com.me.vetclinic.repository.ClinicRepository;
 import com.me.vetclinic.repository.PetOwnerRepository;
 import com.me.vetclinic.repository.PetRepository;
 import com.me.vetclinic.repository.VetRepository;
@@ -14,6 +12,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +30,18 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired private PetRepository petRepository;
     @Autowired private PetOwnerRepository petOwnerRepository;
     @Autowired private VetRepository vetRepository;
+    @Autowired private ClinicRepository clinicRepository;
 
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         populatePetOwners();
         populateVets();
+        try {
+            populateClinics();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void populatePetOwners() {
@@ -73,5 +79,24 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
 
         vetRepository.save(vet);
         log.info(vetRepository.findOne((long) 1));
+    }
+
+    public void populateClinics() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+        Clinic clinic = new Clinic();
+        clinic.setName("First Clinic");
+        clinic.setAddress("1234 Budapest Clinic st 1/A");
+        clinic.setOpeningHour(format.parse("08:00"));
+        clinic.setClosingHour(format.parse("14:00"));
+
+        Clinic clinic2 = new Clinic();
+        clinic2.setName("Second Clinic");
+        clinic2.setAddress("1222 Budapest Clinic st 55");
+        clinic2.setOpeningHour(format.parse("10:00"));
+        clinic2.setClosingHour(format.parse("20:00"));
+
+        clinicRepository.save(clinic);
+        clinicRepository.save(clinic2);
     }
 }
