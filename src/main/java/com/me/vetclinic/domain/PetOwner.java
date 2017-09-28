@@ -15,7 +15,7 @@ public class PetOwner extends User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "petOwner", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "petOwner")
     private List<Pet> pets = new ArrayList<Pet>();
 
     public Long getId() {
