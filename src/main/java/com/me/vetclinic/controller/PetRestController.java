@@ -2,12 +2,15 @@ package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.repository.PetRepository;
+import com.me.vetclinic.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 /**
  * Created by totheszter on 2017. 09. 24..
@@ -16,23 +19,24 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/pet")
 public class PetRestController {
 
-    private PetRepository petRepository;
+    private PetService petService;
 
     @Autowired
-    public PetRestController(PetRepository petRepository) {
-        this.petRepository = petRepository;
+    public PetRestController(PetService petService) {
+        this.petService = petService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addPet(@RequestBody Pet input, UriComponentsBuilder ucBuilder){
-        petRepository.save(input);
+    ResponseEntity<?> addPet(@RequestBody Pet pet, UriComponentsBuilder ucBuilder){
+        petService.addPet(pet);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/pet/{petId}").buildAndExpand(input.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/pet/{petId}").buildAndExpand(pet.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{petId}")
     Pet getPet(@PathVariable Long petId){
-        return petRepository.findOne(petId);
+        return petService.findById(petId);
     }
+
 }

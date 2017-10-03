@@ -20,10 +20,6 @@ public class Pet {
     private double weight;
     private LocalDate dateOfBirth;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_owner_id", referencedColumnName = "ID")
-    private PetOwner petOwner;
-
     public Long getId() {
         return id;
     }
@@ -62,14 +58,6 @@ public class Pet {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public PetOwner getPetOwner() {
-        return petOwner;
-    }
-
-    public void setPetOwner(PetOwner petOwner) {
-        this.petOwner = petOwner;
     }
 
     @Override

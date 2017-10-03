@@ -8,14 +8,13 @@ import java.util.List;
  * Created by totheszter on 2017. 02. 05..
  */
 @Entity
-@Table(name = "pet_owner")
 public class PetOwner extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "petOwner")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Pet> pets = new ArrayList<Pet>();
 
     public Long getId() {

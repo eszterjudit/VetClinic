@@ -28,12 +28,8 @@ public class PetOwnerRestController {
         this.petRepository = petRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{petOwnerId}")
-    public List<Pet> getOwnerAllPets(@PathVariable Long petOwnerId){
-        PetOwner petOwner = petOwnerRepository.findOne(petOwnerId);
-        log.info(petOwner);
-        List<Pet> pets = petRepository.findByPetOwner(petOwner);
-        log.info(pets);
-        return pets;
+    @RequestMapping(method = RequestMethod.GET, value = "/{petOwnerId}")
+    PetOwner getPetOwner(@PathVariable Long petOwnerId) {
+        return petOwnerRepository.findOne(petOwnerId);
     }
 }

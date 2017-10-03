@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +38,6 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         populatePetOwners();
         populateVets();
-        try {
-            populateClinics();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public void populatePetOwners() {
@@ -60,15 +56,29 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         petOwner.setLastName("Jonson");
         petOwner.setEmail("jack.jonson@email.com");
         petOwner.setPets(pets);
-        log.info(petOwner);
         log.info(petOwnerRepository.save(petOwner));
-        log.info(petOwnerRepository.findOne((long) 1));
 
         log.info("Pet owner population finished");
         petOwnerRepository.findAll().stream().forEach(p -> log.info(p + " added"));
     }
 
     public void populateVets() {
+        Clinic clinic = new Clinic();
+        clinic.setName("First Clinic");
+        clinic.setAddress("1234 Budapest Clinic st 1/A");
+        clinic.setOpeningHour(LocalTime.of(8,30));
+        clinic.setClosingHour(LocalTime.of(14, 40));
+
+        Clinic clinic2 = new Clinic();
+        clinic2.setName("Second Clinic");
+        clinic2.setAddress("1222 Budapest Clinic st 55");
+        clinic2.setOpeningHour(LocalTime.of(10,0));
+        clinic2.setClosingHour(LocalTime.of(18,30));
+
+        List<Clinic> clinics = new ArrayList<>();
+        clinics.add(clinic);
+        clinics.add(clinic2);
+
         List specialities = new ArrayList();
         specialities.add(PetType.REPTILE);
         Vet vet = new Vet();
@@ -76,27 +86,11 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         vet.setLastName("Vetson");
         vet.setEmail("reptile123@gmail.com");
         vet.setSpeciality(specialities);
-
-        vetRepository.save(vet);
-        log.info(vetRepository.findOne((long) 1));
-    }
-
-    public void populateClinics() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-        Clinic clinic = new Clinic();
-        clinic.setName("First Clinic");
-        clinic.setAddress("1234 Budapest Clinic st 1/A");
-        clinic.setOpeningHour(format.parse("08:00"));
-        clinic.setClosingHour(format.parse("14:00"));
-
-        Clinic clinic2 = new Clinic();
-        clinic2.setName("Second Clinic");
-        clinic2.setAddress("1222 Budapest Clinic st 55");
-        clinic2.setOpeningHour(format.parse("10:00"));
-        clinic2.setClosingHour(format.parse("20:00"));
+        vet.setClinics(clinics);
 
         clinicRepository.save(clinic);
         clinicRepository.save(clinic2);
+        vetRepository.save(vet);
+        log.info(vetRepository.findOne((long) 1));
     }
 }
