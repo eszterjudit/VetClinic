@@ -31,7 +31,7 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
     private VetRepository vetRepository;
     @Autowired
     private ClinicRepository clinicRepository;
-    
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         populatePetOwners();
