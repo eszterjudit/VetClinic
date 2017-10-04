@@ -1,6 +1,7 @@
 package com.me.vetclinic.repository;
 
 import com.me.vetclinic.configuration.RepositoryConfiguration;
+import com.me.vetclinic.domain.Address;
 import com.me.vetclinic.domain.Clinic;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +23,15 @@ public class ClinicRepositoryTest {
 
     @Test
     public void testSaveClinic() {
+        Address address = new Address();
+        address.setCity("Budapest");
+        address.setCountry("Hungary");
+        address.setStreet("Németvölgyi út 20");
+        address.setZip(1126);
+
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");
-        clinic.setAddress("1234 Budapest Clinic st 1/A");
+        clinic.setAddress(address);
 
         clinicRepository.save(clinic);
 
@@ -34,7 +41,6 @@ public class ClinicRepositoryTest {
         assertEquals(fetchedClinic, clinic);
 
         fetchedClinic.setName("updated name");
-        fetchedClinic.setAddress("updated address");
         clinicRepository.save(fetchedClinic);
         Clinic updatedClinic = clinicRepository.findOne(fetchedClinic.getId());
         assertEquals(updatedClinic, fetchedClinic);

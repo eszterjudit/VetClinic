@@ -1,12 +1,9 @@
 package com.me.vetclinic.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 public class Clinic {
@@ -16,7 +13,9 @@ public class Clinic {
     @Column(name = "CLINIC_ID")
     private Long id;
     private String name;
-    private String address;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
     private LocalTime openingHour;
     private LocalTime closingHour;
 
@@ -36,11 +35,11 @@ public class Clinic {
 
     public void setName(String name) { this.name = name; }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -68,15 +67,5 @@ public class Clinic {
         this.vets = vets;
     }
 
-    @Override
-    public String toString() {
-        return "Clinic{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", openingHour=" + openingHour +
-                ", closingHour=" + closingHour +
-                ", vets=" + vets.stream().map(vet -> vet.getFirstName() + " " + vet.getLastName()).collect(Collectors.toList()) +
-                '}';
-    }
+
 }

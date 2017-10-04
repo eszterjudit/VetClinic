@@ -63,15 +63,27 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     public void populateVets() {
+        Address address = new Address();
+        address.setCity("Budapest");
+        address.setCountry("Hungary");
+        address.setStreet("Németvölgyi út 20");
+        address.setZip(1126);
+
+        Address address2 = new Address();
+        address2.setCity("Budapest");
+        address2.setCountry("Hungary");
+        address2.setStreet("dsdd 2");
+        address2.setZip(1234);
+
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");
-        clinic.setAddress("1234 Budapest Clinic st 1/A");
+        clinic.setAddress(address);
         clinic.setOpeningHour(LocalTime.of(8,30));
         clinic.setClosingHour(LocalTime.of(14, 40));
 
         Clinic clinic2 = new Clinic();
         clinic2.setName("Second Clinic");
-        clinic2.setAddress("1222 Budapest Clinic st 55");
+        clinic2.setAddress(address2);
         clinic2.setOpeningHour(LocalTime.of(10,0));
         clinic2.setClosingHour(LocalTime.of(18,30));
 
