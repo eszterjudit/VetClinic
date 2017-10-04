@@ -27,34 +27,36 @@ public class ClinicRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addClinic(@RequestBody Clinic clinic, UriComponentsBuilder ucBuilder){
+    ResponseEntity<?> addClinic(@RequestBody Clinic clinic, UriComponentsBuilder ucBuilder) {
         clinicService.addClinic(clinic);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/clinic/{clinicId}").buildAndExpand(clinic.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{clinicId}/vets")
-    List<Vet> getClinicAllVets(@PathVariable Long clinicId){
+    @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}/vets")
+    List<Vet> getClinicAllVets(@PathVariable Long clinicId) {
         return vetRepository.findByClinics_Id(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{clinicId}")
-    Clinic getClinic(@PathVariable Long clinicId){
+    @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}")
+    Clinic getClinic(@PathVariable Long clinicId) {
         return clinicService.findById(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{city}")
-    List<Clinic> getClinicsByCity(@PathVariable String city){
+    @RequestMapping(method = RequestMethod.GET, value = "/{city}")
+    List<Clinic> getClinicsByCity(@PathVariable String city) {
         return clinicService.findByCity(city);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{zip}")
-    List<Clinic> getClinicsByZip(@PathVariable int zip){
+    @RequestMapping(method = RequestMethod.GET, value = "/{zip}")
+    List<Clinic> getClinicsByZip(@PathVariable int zip) {
         return clinicService.findByZip(zip);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/")
-    List<Clinic> getAllClinics() { return clinicService.findAll(); }
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    List<Clinic> getAllClinics() {
+        return clinicService.findAll();
+    }
 
 }

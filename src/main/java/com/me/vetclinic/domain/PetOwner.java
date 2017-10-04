@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Entity
 public class PetOwner extends User {
 

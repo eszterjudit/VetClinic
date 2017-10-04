@@ -25,10 +25,16 @@ public class ClinicService {
         return clinicRepository.findOne(clinicId);
     }
 
-    public List<Clinic> findAll() { return clinicRepository.findAll(); }
+    public List<Clinic> findAll() {
+        return clinicRepository.findAll();
+    }
 
-    public List<Clinic> findByZip(int zip) { return clinicRepository.getClinicByAddress_Zip(zip); }
+    public List<Clinic> findByZip(int zip) {
+        return clinicRepository.getClinicByAddress_Zip(zip);
+    }
 
-    public List<Clinic> findByCity(String city) { return clinicRepository.getClinicByAddress_City(city); }
+    public List<Clinic> findByCity(String city) {
+        return clinicRepository.getClinicByAddress_City(city);
+    }
 
 }

@@ -28,7 +28,7 @@ public class VetRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addVet(@RequestBody Vet vet, UriComponentsBuilder ucBuilder){
+    ResponseEntity<?> addVet(@RequestBody Vet vet, UriComponentsBuilder ucBuilder) {
         vetService.addVet(vet);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/vet/{vetId}").buildAndExpand(vet.getId()).toUri());
@@ -53,18 +53,18 @@ public class VetRestController {
         return new ResponseEntity<>(currentVet, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{vetId}/clinics")
-    List<Clinic> getVetAllClinics(@PathVariable Long vetId){
+    @RequestMapping(method = RequestMethod.GET, value = "/{vetId}/clinics")
+    List<Clinic> getVetAllClinics(@PathVariable Long vetId) {
         return clinicRepository.findByVets_Id(vetId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/speciality")
-    List<Vet> getVetsBySpeciality(@PathVariable PetType type){
+    @RequestMapping(method = RequestMethod.GET, value = "/speciality")
+    List<Vet> getVetsBySpeciality(@PathVariable PetType type) {
         return vetService.findBySpeciality(type);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{vetId}")
-    Vet getVet(@PathVariable Long vetId){
+    @RequestMapping(method = RequestMethod.GET, value = "/{vetId}")
+    Vet getVet(@PathVariable Long vetId) {
         return vetService.findById(vetId);
     }
 

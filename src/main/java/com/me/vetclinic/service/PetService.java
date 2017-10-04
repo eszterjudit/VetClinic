@@ -5,9 +5,6 @@ import com.me.vetclinic.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Service
 public class PetService {
 
@@ -22,9 +19,13 @@ public class PetService {
         petRepository.save(pet);
     }
 
-    public void deletePet(Pet pet) { petRepository.delete(pet); }
+    public void deletePet(Pet pet) {
+        petRepository.delete(pet);
+    }
 
-    public void updatePet(Pet pet) { petRepository.save(pet); }
+    public void updatePet(Pet pet) {
+        petRepository.save(pet);
+    }
 
     public Pet findById(Long petId) {
         return petRepository.findOne(petId);

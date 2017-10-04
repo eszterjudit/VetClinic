@@ -12,28 +12,26 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by totheszter on 2017. 09. 24..
- */
 @Component
 @Transactional
 public class Loader implements ApplicationListener<ContextRefreshedEvent> {
 
     private Logger log = Logger.getLogger(Loader.class);
 
-    @Autowired private PetRepository petRepository;
-    @Autowired private PetOwnerRepository petOwnerRepository;
-    @Autowired private VetRepository vetRepository;
-    @Autowired private ClinicRepository clinicRepository;
-
-
+    @Autowired
+    private PetRepository petRepository;
+    @Autowired
+    private PetOwnerRepository petOwnerRepository;
+    @Autowired
+    private VetRepository vetRepository;
+    @Autowired
+    private ClinicRepository clinicRepository;
+    
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         populatePetOwners();
@@ -78,14 +76,14 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");
         clinic.setAddress(address);
-        clinic.setOpeningHour(LocalTime.of(8,30));
+        clinic.setOpeningHour(LocalTime.of(8, 30));
         clinic.setClosingHour(LocalTime.of(14, 40));
 
         Clinic clinic2 = new Clinic();
         clinic2.setName("Second Clinic");
         clinic2.setAddress(address2);
-        clinic2.setOpeningHour(LocalTime.of(10,0));
-        clinic2.setClosingHour(LocalTime.of(18,30));
+        clinic2.setOpeningHour(LocalTime.of(10, 0));
+        clinic2.setClosingHour(LocalTime.of(18, 30));
 
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinic);

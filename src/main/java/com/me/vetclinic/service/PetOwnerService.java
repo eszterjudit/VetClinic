@@ -5,9 +5,6 @@ import com.me.vetclinic.repository.PetOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Service
 public class PetOwnerService {
 

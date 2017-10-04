@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Entity
 public class Vet extends User {
 

@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Service
 public class VetService {
 
@@ -25,9 +22,13 @@ public class VetService {
         vetRepository.save(vet);
     }
 
-    public void updateVet(Vet vet) { vetRepository.save(vet); }
+    public void updateVet(Vet vet) {
+        vetRepository.save(vet);
+    }
 
-    public List<Vet> findBySpeciality(PetType type) { return vetRepository.findBySpecialityContains(type); }
+    public List<Vet> findBySpeciality(PetType type) {
+        return vetRepository.findBySpecialityContains(type);
+    }
 
     public Vet findById(Long vetId) {
         return vetRepository.findOne(vetId);

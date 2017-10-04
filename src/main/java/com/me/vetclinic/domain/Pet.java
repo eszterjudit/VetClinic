@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @Entity
 public class Pet {
 
@@ -87,6 +84,6 @@ public class Pet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name,id,dateOfBirth,weight,type);
+        return Objects.hash(name, id, dateOfBirth, weight, type);
     }
 }
