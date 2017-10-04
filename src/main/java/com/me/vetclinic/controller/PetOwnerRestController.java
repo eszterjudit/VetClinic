@@ -1,35 +1,26 @@
 package com.me.vetclinic.controller;
 
-import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.PetOwner;
-import com.me.vetclinic.repository.PetOwnerRepository;
-import com.me.vetclinic.repository.PetRepository;
-import org.apache.log4j.Logger;
+import com.me.vetclinic.service.PetOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/petowner")
 public class PetOwnerRestController {
 
-    private Logger log = Logger.getLogger(PetOwnerRestController.class);
-
-    private PetOwnerRepository petOwnerRepository;
-    private PetRepository petRepository;
+    private PetOwnerService petOwnerService;
 
     @Autowired
-    public PetOwnerRestController(PetOwnerRepository petOwnerRepository, PetRepository petRepository) {
-        this.petOwnerRepository = petOwnerRepository;
-        this.petRepository = petRepository;
+    public PetOwnerRestController(PetOwnerService petOwnerService) {
+        this.petOwnerService = petOwnerService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{petOwnerId}")
     PetOwner getPetOwner(@PathVariable Long petOwnerId) {
-        return petOwnerRepository.findOne(petOwnerId);
+        return petOwnerService.findById(petOwnerId);
     }
 }

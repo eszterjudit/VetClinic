@@ -1,10 +1,10 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
-import com.me.vetclinic.domain.Pet;
+import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.ClinicRepository;
-import com.me.vetclinic.repository.VetRepository;
+import com.me.vetclinic.service.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,21 +18,39 @@ import java.util.List;
 @RequestMapping("/vet")
 public class VetRestController {
 
-    private VetRepository vetRepository;
+    private VetService vetService;
     private ClinicRepository clinicRepository;
 
     @Autowired
-    public VetRestController(VetRepository vetRepository, ClinicRepository clinicRepository) {
-        this.vetRepository = vetRepository;
+    public VetRestController(VetService vetService, ClinicRepository clinicRepository) {
+        this.vetService = vetService;
         this.clinicRepository = clinicRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addVet(@RequestBody Vet input, UriComponentsBuilder ucBuilder){
-        vetRepository.save(input);
+    ResponseEntity<?> addVet(@RequestBody Vet vet, UriComponentsBuilder ucBuilder){
+        vetService.addVet(vet);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/vet/{vetId}").buildAndExpand(input.getId()).toUri());
+        headers.setLocation(ucBuilder.path("/vet/{vetId}").buildAndExpand(vet.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/vet/{vetId}")
+    public ResponseEntity<?> updateVet(@PathVariable("vetId") long vetId, @RequestBody Vet vet) {
+        Vet currentVet = vetService.findById(vet.getId());
+
+        if (currentVet == null) {
+            return new ResponseEntity<Vet>(HttpStatus.NOT_FOUND);
+        }
+
+        currentVet.setFirstName(vet.getFirstName());
+        currentVet.setLastName(vet.getLastName());
+        currentVet.setEmail(vet.getEmail());
+        currentVet.setSpeciality(vet.getSpeciality());
+        currentVet.setClinics(vet.getClinics());
+
+        vetService.updateVet(currentVet);
+        return new ResponseEntity<>(currentVet, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="/{vetId}/clinics")
@@ -40,9 +58,14 @@ public class VetRestController {
         return clinicRepository.findByVets_Id(vetId);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value="/speciality")
+    List<Vet> getVetsBySpeciality(@PathVariable PetType type){
+        return vetService.findBySpeciality(type);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value="/{vetId}")
     Vet getVet(@PathVariable Long vetId){
-        return vetRepository.findOne(vetId);
+        return vetService.findById(vetId);
     }
 
 }

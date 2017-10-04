@@ -15,7 +15,7 @@ public class PetOwner extends User {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Pet> pets = new ArrayList<Pet>();
+    private List<Pet> pets = new ArrayList<>();
 
     public Long getId() {
         return id;

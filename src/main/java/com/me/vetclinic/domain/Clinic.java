@@ -67,5 +67,4 @@ public class Clinic {
         this.vets = vets;
     }
 
-
 }
