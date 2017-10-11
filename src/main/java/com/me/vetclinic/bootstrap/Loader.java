@@ -91,6 +91,11 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
 
         List specialities = new ArrayList();
         specialities.add(PetType.REPTILE);
+
+        List specialities2 = new ArrayList();
+        specialities.add(PetType.REPTILE);
+        specialities.add(PetType.CAT);
+
         Vet vet = new Vet();
         vet.setFirstName("Vet");
         vet.setLastName("Vetson");
@@ -98,9 +103,26 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         vet.setSpeciality(specialities);
         vet.setClinics(clinics);
 
+        Vet vet2 = new Vet();
+        vet2.setFirstName("New");
+        vet2.setLastName("Vet");
+        vet2.setEmail("newvet@gmail.com");
+        vet2.setSpeciality(specialities2);
+        vet2.setClinics(clinics);
+
+        Vet vet3 = new Vet();
+        vet3.setFirstName("Third");
+        vet3.setLastName("Vet");
+        vet3.setEmail("vetvet@gmail.com");
+        vet3.setSpeciality(specialities);
+        vet3.setClinics(clinics);
+
         clinicRepository.save(clinic);
         clinicRepository.save(clinic2);
         vetRepository.save(vet);
+        vetRepository.save(vet2);
+        vetRepository.save(vet3);
+
         log.info(vetRepository.findOne((long) 1));
     }
 }
