@@ -23,4 +23,8 @@ public class PetOwnerService {
         return petOwnerRepository.findOne(petOwnerId);
     }
 
+    public PetOwner findByEmail(String email) {
+        return petOwnerRepository.findByEmail(email).isPresent() ? petOwnerRepository.findByEmail(email).get() : null;
+    }
+
 }

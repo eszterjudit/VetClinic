@@ -38,7 +38,7 @@ public class PetRestController {
         return new ResponseEntity<Pet>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/pet/{petId}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/{petId}")
     public ResponseEntity<?> updatePet(@PathVariable("petId") long petId, @RequestBody Pet pet) {
         Pet currentPet = petService.findById(petId);
 

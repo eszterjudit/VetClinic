@@ -54,7 +54,7 @@ public class ClinicRestController {
         return clinicService.findByZip(zip);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET)
     List<Clinic> getAllClinics() {
         return clinicService.findAll();
     }
