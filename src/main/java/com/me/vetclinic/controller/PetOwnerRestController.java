@@ -26,6 +26,17 @@ public class PetOwnerRestController {
         this.petService = petService;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value="/{petOwnerId}/addPet")
+    ResponseEntity<?> addPet(@RequestBody Pet pet, @PathVariable Long petOwnerId, UriComponentsBuilder ucBuilder) {
+        PetOwner petOwner = petOwnerService.findById(petOwnerId);
+        petService.addPet(pet);
+        petOwnerService.addPet(petOwnerId, pet);
+        petOwnerService.addPetOwner(petOwner);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/pet/{petId}").buildAndExpand(pet.getId()).toUri());
+        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{petOwnerId}")
     PetOwner getPetOwner(@PathVariable Long petOwnerId) {
         return petOwnerService.findById(petOwnerId);

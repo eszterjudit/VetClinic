@@ -1,5 +1,6 @@
 package com.me.vetclinic.service;
 
+import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.PetOwner;
 import com.me.vetclinic.repository.PetOwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class PetOwnerService {
 
     public PetOwner findByEmail(String email) {
         return petOwnerRepository.findByEmail(email).isPresent() ? petOwnerRepository.findByEmail(email).get() : null;
+    }
+
+    public void addPet(Long petOwnerId, Pet pet) {
+        petOwnerRepository.findOne(petOwnerId).addPet(pet);
     }
 
 }

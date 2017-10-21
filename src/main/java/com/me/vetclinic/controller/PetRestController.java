@@ -1,6 +1,7 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Pet;
+import com.me.vetclinic.service.PetOwnerService;
 import com.me.vetclinic.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PetRestController {
 
     private PetService petService;
+    private PetOwnerService petOwnerService;
 
     @Autowired
     public PetRestController(PetService petService) {

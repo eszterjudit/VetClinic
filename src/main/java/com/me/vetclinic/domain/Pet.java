@@ -1,7 +1,13 @@
 package com.me.vetclinic.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.me.vetclinic.util.JsonDateDeserializer;
+import com.me.vetclinic.util.JsonDateSerializer;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +21,9 @@ public class Pet {
     private PetType type;
     private String name;
     private double weight;
-    private LocalDate dateOfBirth;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    @JsonDeserialize(using=JsonDateDeserializer.class)
+    private Date dateOfBirth;
 
     public Long getId() {
         return id;
@@ -49,11 +57,11 @@ public class Pet {
         this.weight = weight;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

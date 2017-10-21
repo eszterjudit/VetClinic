@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -30,7 +31,7 @@ public class PetRepositoryTest {
     public void testSavingPetRepository() {
         Pet pet = new Pet();
         pet.setName("TestPet");
-        pet.setDateOfBirth(LocalDate.now());
+        pet.setDateOfBirth(new Date());
         pet.setWeight(0.5);
 
         repository.save(pet);

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -43,7 +44,7 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         pet.setName("Bruno");
         pet.setType(PetType.CAT);
         pet.setWeight(3.1);
-        pet.setDateOfBirth(LocalDate.of(2007, 8, 1));
+        pet.setDateOfBirth(new Date(2007, 8, 1));
         petRepository.save(pet);
         log.info(petRepository.findOne((long) 1));
         List<Pet> pets = new ArrayList<>();
