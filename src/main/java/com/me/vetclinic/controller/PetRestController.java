@@ -18,8 +18,9 @@ public class PetRestController {
     private PetOwnerService petOwnerService;
 
     @Autowired
-    public PetRestController(PetService petService) {
+    public PetRestController(PetService petService, PetOwnerService petOwnerService) {
         this.petService = petService;
+        this.petOwnerService = petOwnerService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -30,12 +31,13 @@ public class PetRestController {
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    ResponseEntity<?> deletePet(@PathVariable Long petId) {
+    @RequestMapping(method = RequestMethod.DELETE, value="{petOwnerId}/deletePet/{petId}")
+    ResponseEntity<?> deletePet(@PathVariable Long petOwnerId, @PathVariable Long petId) {
         Pet pet = petService.findById(petId);
         if (pet == null) {
             return new ResponseEntity<Pet>(HttpStatus.NOT_FOUND);
         }
+        petOwnerService.deletePet(petOwnerId, pet);
         petService.deletePet(pet);
         return new ResponseEntity<Pet>(HttpStatus.NO_CONTENT);
     }

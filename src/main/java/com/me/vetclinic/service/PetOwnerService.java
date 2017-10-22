@@ -29,7 +29,11 @@ public class PetOwnerService {
     }
 
     public void addPet(Long petOwnerId, Pet pet) {
-        petOwnerRepository.findOne(petOwnerId).addPet(pet);
+        petOwnerRepository.findOne(petOwnerId).getPets().add(pet);
+    }
+
+    public void deletePet(Long petOwnerId, Pet pet) {
+        petOwnerRepository.findOne(petOwnerId).getPets().remove(pet);
     }
 
 }

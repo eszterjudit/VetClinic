@@ -1,8 +1,6 @@
 package com.me.vetclinic.domain;
 
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -10,6 +8,9 @@ public abstract class User {
     private String firstName;
     private String lastName;
     private String email;
+    private String phone;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
     public String getFirstName() {
         return firstName;
@@ -33,5 +34,21 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

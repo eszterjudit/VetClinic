@@ -50,10 +50,19 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         List<Pet> pets = new ArrayList<>();
         pets.add(pet);
 
+        Address address = new Address();
+        address.setCity("Budapest");
+        address.setCountry("Hungary");
+        address.setZip(1234);
+        address.setStreet("sdhagd 2");
+
         PetOwner petOwner = new PetOwner();
         petOwner.setFirstName("Jack");
         petOwner.setLastName("Jonson");
         petOwner.setEmail("jack.jonson@email.com");
+        petOwner.setPhone("1234567");
+        petOwner.setAddress(address);
+
         petOwner.setPets(pets);
         log.info(petOwnerRepository.save(petOwner));
 
