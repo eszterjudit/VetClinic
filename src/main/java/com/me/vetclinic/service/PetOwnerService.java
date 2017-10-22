@@ -28,6 +28,10 @@ public class PetOwnerService {
         return petOwnerRepository.findByEmail(email).isPresent() ? petOwnerRepository.findByEmail(email).get() : null;
     }
 
+    public void updateUser(PetOwner petOwner) {
+        petOwnerRepository.save(petOwner);
+    }
+
     public void addPet(Long petOwnerId, Pet pet) {
         petOwnerRepository.findOne(petOwnerId).getPets().add(pet);
     }

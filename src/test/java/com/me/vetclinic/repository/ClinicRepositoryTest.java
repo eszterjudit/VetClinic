@@ -27,7 +27,7 @@ public class ClinicRepositoryTest {
         address.setCity("Budapest");
         address.setCountry("Hungary");
         address.setStreet("Németvölgyi út 20");
-        address.setZip(1126);
+        address.setZip("1126");
 
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");

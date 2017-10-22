@@ -51,9 +51,6 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         pets.add(pet);
 
         Address address = new Address();
-        address.setCity("Budapest");
-        address.setCountry("Hungary");
-        address.setZip(1234);
         address.setStreet("sdhagd 2");
 
         PetOwner petOwner = new PetOwner();
@@ -75,13 +72,13 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         address.setCity("Budapest");
         address.setCountry("Hungary");
         address.setStreet("Németvölgyi út 20");
-        address.setZip(1126);
+        address.setZip("1126");
 
         Address address2 = new Address();
         address2.setCity("Budapest");
         address2.setCountry("Hungary");
         address2.setStreet("dsdd 2");
-        address2.setZip(1234);
+        address2.setZip("1234");
 
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");
