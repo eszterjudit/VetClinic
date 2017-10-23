@@ -23,14 +23,6 @@ public class PetRestController {
         this.petOwnerService = petOwnerService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addPet(@RequestBody Pet pet, UriComponentsBuilder ucBuilder) {
-        petService.addPet(pet);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/pet/{petId}").buildAndExpand(pet.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-
     @RequestMapping(method = RequestMethod.DELETE, value="{petOwnerId}/deletePet/{petId}")
     ResponseEntity<?> deletePet(@PathVariable Long petOwnerId, @PathVariable Long petId) {
         Pet pet = petService.findById(petId);

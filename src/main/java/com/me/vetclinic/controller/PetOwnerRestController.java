@@ -28,10 +28,7 @@ public class PetOwnerRestController {
 
     @RequestMapping(method = RequestMethod.POST, value="/{petOwnerId}/addPet")
     ResponseEntity<?> addPet(@RequestBody Pet pet, @PathVariable Long petOwnerId, UriComponentsBuilder ucBuilder) {
-        PetOwner petOwner = petOwnerService.findById(petOwnerId);
-        petService.addPet(pet);
         petOwnerService.addPet(petOwnerId, pet);
-        petOwnerService.addPetOwner(petOwner);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/pet/{petId}").buildAndExpand(pet.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
