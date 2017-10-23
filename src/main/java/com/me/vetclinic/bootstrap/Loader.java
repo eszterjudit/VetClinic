@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,11 +41,13 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     public void populatePetOwners() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2007, 8, 1);
         Pet pet = new Pet();
         pet.setName("Bruno");
         pet.setType(PetType.CAT);
         pet.setWeight(3.1);
-        pet.setDateOfBirth(new Date(2007, 8, 1));
+        pet.setDateOfBirth(calendar.getTime());
         petRepository.save(pet);
         log.info(petRepository.findOne((long) 1));
         List<Pet> pets = new ArrayList<>();
@@ -80,17 +83,25 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         address2.setStreet("dsdd 2");
         address2.setZip("1234");
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 30);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.HOUR_OF_DAY, 14);
+        calendar2.set(Calendar.MINUTE, 40);
+
         Clinic clinic = new Clinic();
         clinic.setName("First Clinic");
         clinic.setAddress(address);
-        clinic.setOpeningHour(LocalTime.of(8, 30));
-        clinic.setClosingHour(LocalTime.of(14, 40));
+        clinic.setOpeningHour(calendar.getTime());
+        clinic.setClosingHour(calendar2.getTime());
 
         Clinic clinic2 = new Clinic();
         clinic2.setName("Second Clinic");
         clinic2.setAddress(address2);
-        clinic2.setOpeningHour(LocalTime.of(10, 0));
-        clinic2.setClosingHour(LocalTime.of(18, 30));
+        clinic2.setOpeningHour(calendar.getTime());
+        clinic2.setClosingHour(calendar2.getTime());
 
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinic);

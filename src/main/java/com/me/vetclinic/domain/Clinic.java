@@ -1,8 +1,16 @@
 package com.me.vetclinic.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.me.vetclinic.util.JsonDateDeserializer;
+import com.me.vetclinic.util.JsonDateSerializer;
+import com.me.vetclinic.util.JsonHourDeserializer;
+import com.me.vetclinic.util.JsonHourSerializer;
+
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,8 +24,12 @@ public class Clinic {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
-    private LocalTime openingHour;
-    private LocalTime closingHour;
+    @JsonSerialize(using=JsonHourSerializer.class)
+    @JsonDeserialize(using=JsonHourDeserializer.class)
+    private Date openingHour;
+    @JsonSerialize(using=JsonHourSerializer.class)
+    @JsonDeserialize(using=JsonHourDeserializer.class)
+    private Date closingHour;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VET_CLINIC", joinColumns = {@JoinColumn(name = "CLINIC_ID")}, inverseJoinColumns = {@JoinColumn(name = "VET_ID")})
@@ -47,19 +59,19 @@ public class Clinic {
         this.address = address;
     }
 
-    public LocalTime getOpeningHour() {
+    public Date getOpeningHour() {
         return openingHour;
     }
 
-    public void setOpeningHour(LocalTime openingHour) {
+    public void setOpeningHour(Date openingHour) {
         this.openingHour = openingHour;
     }
 
-    public LocalTime getClosingHour() {
+    public Date getClosingHour() {
         return closingHour;
     }
 
-    public void setClosingHour(LocalTime closingHour) {
+    public void setClosingHour(Date closingHour) {
         this.closingHour = closingHour;
     }
 
