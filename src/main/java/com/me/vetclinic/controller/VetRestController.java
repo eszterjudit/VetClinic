@@ -37,20 +37,9 @@ public class VetRestController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{vetId}")
     public ResponseEntity<?> updateVet(@PathVariable("vetId") long vetId, @RequestBody Vet vet) {
-        Vet currentVet = vetService.findById(vet.getId());
-
-        if (currentVet == null) {
-            return new ResponseEntity<Vet>(HttpStatus.NOT_FOUND);
-        }
-
-        currentVet.setFirstName(vet.getFirstName());
-        currentVet.setLastName(vet.getLastName());
-        currentVet.setEmail(vet.getEmail());
-        currentVet.setSpeciality(vet.getSpeciality());
-        currentVet.setClinics(vet.getClinics());
-
-        vetService.updateVet(currentVet);
-        return new ResponseEntity<>(currentVet, HttpStatus.OK);
+        vet.setId(vetId);
+        vetService.updateVet(vet);
+        return new ResponseEntity<>(vet, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{vetId}/clinics")

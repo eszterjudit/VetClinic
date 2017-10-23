@@ -7,6 +7,8 @@ import com.me.vetclinic.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PetOwnerService {
 
@@ -27,8 +29,8 @@ public class PetOwnerService {
         return petOwnerRepository.findOne(petOwnerId);
     }
 
-    public PetOwner findByEmail(String email) {
-        return petOwnerRepository.findByEmail(email).isPresent() ? petOwnerRepository.findByEmail(email).get() : null;
+    public Optional<PetOwner> findByEmail(String email) {
+        return petOwnerRepository.findByEmail(email);
     }
 
     public void updateUser(PetOwner petOwner) {

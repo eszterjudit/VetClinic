@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Clinic {
@@ -83,4 +84,15 @@ public class Clinic {
         this.vets = vets;
     }
 
+    @Override
+    public String toString() {
+        return "Clinic{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", openingHour=" + openingHour +
+                ", closingHour=" + closingHour +
+                ", vets=" + vets.stream().map(vet -> vet.getEmail()).collect(Collectors.toList()) +
+                '}';
+    }
 }

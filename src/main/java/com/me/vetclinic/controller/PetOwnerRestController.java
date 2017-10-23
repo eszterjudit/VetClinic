@@ -46,20 +46,9 @@ public class PetOwnerRestController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{petOwnerId}")
     public ResponseEntity<?> updatePetOwner(@PathVariable("petOwnerId") long petOwnerId, @RequestBody PetOwner petOwner) {
-        PetOwner currentUser = petOwnerService.findById(petOwnerId);
-
-        if (currentUser == null) {
-            return new ResponseEntity<PetOwner>(HttpStatus.NOT_FOUND);
-        }
-
-        currentUser.setFirstName(petOwner.getFirstName());
-        currentUser.setLastName(petOwner.getLastName());
-        currentUser.setEmail(petOwner.getEmail());
-        currentUser.setPhone(petOwner.getPhone());
-        currentUser.setAddress(petOwner.getAddress());
-
-        petOwnerService.updateUser(currentUser);
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+        petOwner.setId(petOwnerId);
+        petOwnerService.updateUser(petOwner);
+        return new ResponseEntity<>(petOwner, HttpStatus.OK);
     }
 
 }

@@ -103,6 +103,11 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         clinic2.setOpeningHour(calendar.getTime());
         clinic2.setClosingHour(calendar2.getTime());
 
+        clinicRepository.save(clinic);
+        clinicRepository.save(clinic2);
+
+
+
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinic);
         clinics.add(clinic2);
@@ -117,7 +122,7 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         Vet vet = new Vet();
         vet.setFirstName("Vet");
         vet.setLastName("Vetson");
-        vet.setEmail("reptile123@gmail.com");
+        vet.setEmail("vet@email.com");
         vet.setSpeciality(specialities);
         vet.setClinics(clinics);
 
@@ -135,12 +140,11 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         vet3.setSpeciality(specialities);
         vet3.setClinics(clinics);
 
-        clinicRepository.save(clinic);
-        clinicRepository.save(clinic2);
         vetRepository.save(vet);
         vetRepository.save(vet2);
         vetRepository.save(vet3);
 
         log.info(vetRepository.findOne((long) 1));
+        log.info(clinicRepository.findOne((long) 1));
     }
 }
