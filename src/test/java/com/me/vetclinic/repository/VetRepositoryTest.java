@@ -11,7 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -31,10 +33,10 @@ public class VetRepositoryTest {
         Vet vet2 = new Vet();
         Vet vet3 = new Vet();
 
-        List<PetType> specialities1 = new ArrayList<>();
+        Set<PetType> specialities1 = new HashSet<>();
         specialities1.add(PetType.CAT);
         specialities1.add(PetType.DOG);
-        List<PetType> specialities2 = new ArrayList<>();
+        Set<PetType> specialities2 = new HashSet<>();
         specialities2.add(PetType.CAT);
         specialities2.add(PetType.REPTILE);
 

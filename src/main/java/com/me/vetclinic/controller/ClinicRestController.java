@@ -1,6 +1,7 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
+import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.VetRepository;
 import com.me.vetclinic.service.ClinicService;
@@ -32,6 +33,20 @@ public class ClinicRestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/clinic/{clinicId}").buildAndExpand(clinic.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value="/{clinicId}/addVet")
+    ResponseEntity<?> addVetToClinic(@RequestBody Long vetId, @PathVariable Long clinicId, UriComponentsBuilder ucBuilder) {
+        clinicService.addVetToClinic(clinicId, vetId);
+        Clinic clinic = clinicService.findById(clinicId);
+        return new ResponseEntity<>(clinic, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value="/{clinicId}/removeVet")
+    ResponseEntity<?> removeVetFromClinic(@RequestBody Long vetId, @PathVariable Long clinicId, UriComponentsBuilder ucBuilder) {
+        clinicService.removeVetFromClinic(clinicId, vetId);
+        Clinic clinic = clinicService.findById(clinicId);
+        return new ResponseEntity<>(clinic, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}/vets")

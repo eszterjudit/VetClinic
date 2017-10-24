@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -18,7 +19,7 @@ public class Vet extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PetTypes", joinColumns = @JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
-    private List<PetType> speciality;
+    private Set<PetType> speciality;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
@@ -33,11 +34,11 @@ public class Vet extends User {
         this.id = id;
     }
 
-    public List<PetType> getSpeciality() {
+    public Set<PetType> getSpeciality() {
         return speciality;
     }
 
-    public void setSpeciality(List<PetType> speciality) {
+    public void setSpeciality(Set<PetType> speciality) {
         this.speciality = speciality;
     }
 

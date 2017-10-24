@@ -14,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 @Transactional
@@ -112,10 +109,13 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         clinics.add(clinic);
         clinics.add(clinic2);
 
-        List specialities = new ArrayList();
+        List<Clinic> clinics2 = new ArrayList<>();
+        clinics2.add(clinic2);
+
+        Set specialities = new HashSet();
         specialities.add(PetType.REPTILE);
 
-        List specialities2 = new ArrayList();
+        Set specialities2 = new HashSet();
         specialities.add(PetType.REPTILE);
         specialities.add(PetType.CAT);
 
@@ -124,7 +124,7 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         vet.setLastName("Vetson");
         vet.setEmail("vet@email.com");
         vet.setSpeciality(specialities);
-        vet.setClinics(clinics);
+        vet.setClinics(clinics2);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("New");
