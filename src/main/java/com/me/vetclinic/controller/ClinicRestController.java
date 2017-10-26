@@ -36,14 +36,14 @@ public class ClinicRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value="/{clinicId}/addVet")
-    ResponseEntity<?> addVetToClinic(@RequestBody Long vetId, @PathVariable Long clinicId, UriComponentsBuilder ucBuilder) {
+    ResponseEntity<?> addVetToClinic(@RequestBody Long vetId, @PathVariable Long clinicId) {
         clinicService.addVetToClinic(clinicId, vetId);
         Clinic clinic = clinicService.findById(clinicId);
         return new ResponseEntity<>(clinic, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value="/{clinicId}/removeVet")
-    ResponseEntity<?> removeVetFromClinic(@RequestBody Long vetId, @PathVariable Long clinicId, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(method = RequestMethod.POST, value="/{clinicId}/removeVet")
+    ResponseEntity<?> removeVetFromClinic(@RequestBody Long vetId, @PathVariable Long clinicId) {
         clinicService.removeVetFromClinic(clinicId, vetId);
         Clinic clinic = clinicService.findById(clinicId);
         return new ResponseEntity<>(clinic, HttpStatus.OK);

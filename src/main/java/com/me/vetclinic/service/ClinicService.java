@@ -45,18 +45,15 @@ public class ClinicService {
         Clinic clinic = clinicRepository.findOne(clinicId);
         Vet vet = vetRepository.findOne(vetId);
         clinic.getVets().add(vet);
-        vet.getClinics().add(clinic);
         clinicRepository.save(clinic);
-        vetRepository.save(vet);
     }
 
     public void removeVetFromClinic(Long clinicId, Long vetId) {
         Clinic clinic = clinicRepository.findOne(clinicId);
         Vet vet = vetRepository.findOne(vetId);
-        clinic.getVets().remove(vet);
         vet.getClinics().remove(clinic);
+        clinic.getVets().remove(vet);
         clinicRepository.save(clinic);
-        vetRepository.save(vet);
     }
 
 }
