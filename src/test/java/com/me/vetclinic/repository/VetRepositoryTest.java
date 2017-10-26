@@ -33,10 +33,10 @@ public class VetRepositoryTest {
         Vet vet2 = new Vet();
         Vet vet3 = new Vet();
 
-        Set<PetType> specialities1 = new HashSet<>();
+        List<PetType> specialities1 = new ArrayList<>();
         specialities1.add(PetType.CAT);
         specialities1.add(PetType.DOG);
-        Set<PetType> specialities2 = new HashSet<>();
+        List<PetType> specialities2 = new ArrayList<>();
         specialities2.add(PetType.CAT);
         specialities2.add(PetType.REPTILE);
 

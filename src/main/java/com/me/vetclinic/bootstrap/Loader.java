@@ -112,10 +112,10 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         List<Clinic> clinics2 = new ArrayList<>();
         clinics2.add(clinic2);
 
-        Set specialities = new HashSet();
+        List specialities = new ArrayList();
         specialities.add(PetType.REPTILE);
 
-        Set specialities2 = new HashSet();
+        List specialities2 = new ArrayList();
         specialities.add(PetType.REPTILE);
         specialities.add(PetType.CAT);
 

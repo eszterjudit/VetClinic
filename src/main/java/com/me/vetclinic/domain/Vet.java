@@ -19,7 +19,7 @@ public class Vet extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PetTypes", joinColumns = @JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
-    private Set<PetType> speciality;
+    private List<PetType> speciality;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
@@ -34,11 +34,11 @@ public class Vet extends User {
         this.id = id;
     }
 
-    public Set<PetType> getSpeciality() {
+    public List<PetType> getSpeciality() {
         return speciality;
     }
 
-    public void setSpeciality(Set<PetType> speciality) {
+    public void setSpeciality(List<PetType> speciality) {
         this.speciality = speciality;
     }
 

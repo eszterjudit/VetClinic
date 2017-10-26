@@ -5,6 +5,7 @@ import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.ClinicRepository;
 import com.me.vetclinic.service.VetService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
