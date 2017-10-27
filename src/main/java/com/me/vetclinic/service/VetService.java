@@ -35,6 +35,10 @@ public class VetService {
         return vetRepository.findOne(vetId);
     }
 
+    public List<Vet> findAll() {
+        return vetRepository.findAll();
+    }
+
     public Optional<Vet> findByEmail(String email) {
         return vetRepository.findByEmail(email);
     }

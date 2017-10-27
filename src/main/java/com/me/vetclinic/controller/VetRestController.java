@@ -58,4 +58,9 @@ public class VetRestController {
         return vetService.findById(vetId);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/")
+    List<Vet> getAllvets() {
+        return vetService.findAll();
+    }
+
 }
