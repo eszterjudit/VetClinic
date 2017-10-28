@@ -33,10 +33,6 @@ public class ClinicService {
         return clinicRepository.findAll();
     }
 
-    public List<Clinic> findByZip(int zip) {
-        return clinicRepository.getClinicByAddress_Zip(zip);
-    }
-
     public List<Clinic> findByCity(String city) {
         return clinicRepository.getClinicByAddress_City(city);
     }

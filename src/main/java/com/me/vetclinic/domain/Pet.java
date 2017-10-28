@@ -1,5 +1,6 @@
 package com.me.vetclinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.me.vetclinic.util.JsonDateDeserializer;
@@ -24,6 +25,9 @@ public class Pet {
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
     private Date dateOfBirth;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private PetOwner petOwner;
 
     public Long getId() {
         return id;
@@ -63,6 +67,14 @@ public class Pet {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public PetOwner getPetOwner() {
+        return petOwner;
+    }
+
+    public void setPetOwner(PetOwner petOwner) {
+        this.petOwner = petOwner;
     }
 
     @Override

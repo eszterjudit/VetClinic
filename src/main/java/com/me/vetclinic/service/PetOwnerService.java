@@ -29,7 +29,7 @@ public class PetOwnerService {
         return petOwnerRepository.findOne(petOwnerId);
     }
 
-    public Optional<PetOwner> findByEmail(String email) {
+    public PetOwner findByEmail(String email) {
         return petOwnerRepository.findByEmail(email);
     }
 

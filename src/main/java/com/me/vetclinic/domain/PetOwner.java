@@ -27,7 +27,8 @@ public class PetOwner extends User {
     }
 
     public void setPets(List<Pet> pets) {
-        this.pets = pets;
+        this.pets.clear();
+        this.pets.addAll(pets);
     }
 
     public void addPet(Pet pet) {
@@ -40,5 +41,23 @@ public class PetOwner extends User {
                 "id=" + id +
                 "name=" + getFirstName() + " " + getLastName() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PetOwner petOwner = (PetOwner) o;
+
+        if (id != null ? !id.equals(petOwner.id) : petOwner.id != null) return false;
+        return pets != null ? pets.equals(petOwner.pets) : petOwner.pets == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (pets != null ? pets.hashCode() : 0);
+        return result;
     }
 }

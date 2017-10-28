@@ -17,9 +17,6 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by totheszter on 2017. 02. 05..
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = RepositoryConfiguration.class)
 @Transactional
@@ -62,4 +59,8 @@ public class VetRepositoryTest {
         assertTrue(dogVets.contains(vet1));
         assertTrue(dogVets.contains(vet2));
     }
+
+
+
+
 }

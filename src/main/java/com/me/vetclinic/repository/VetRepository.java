@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface VetRepository extends JpaRepository<Vet, Long> {
     List<Vet> findBySpecialityContains(PetType type);
     List<Vet> findByClinics_Id(Long clinicId);
-    Optional<Vet> findByEmail(String email);
+    Vet findByEmail(String email);
 }

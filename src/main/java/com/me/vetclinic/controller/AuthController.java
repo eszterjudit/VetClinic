@@ -27,11 +27,11 @@ public class AuthController {
     Map<String, Object> getToken(HttpSession session, Principal principal) {
         Map<String, Object> result = new HashMap<>();
         result.put("session", session.getId());
-        if (petOwnerService.findByEmail(principal.getName()).isPresent()) {
-            result.put("id", petOwnerService.findByEmail(principal.getName()).get().getId());
+        if (petOwnerService.findByEmail(principal.getName()) != null) {
+            result.put("id", petOwnerService.findByEmail(principal.getName()).getId());
             result.put("isVet", false);
-        } else if(vetService.findByEmail(principal.getName()).isPresent()) {
-            result.put("id", vetService.findByEmail(principal.getName()).get().getId());
+        } else if(vetService.findByEmail(principal.getName()) != null) {
+            result.put("id", vetService.findByEmail(principal.getName()).getId());
             result.put("isVet", true);
         }
         return result;

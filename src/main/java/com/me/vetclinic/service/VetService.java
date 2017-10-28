@@ -39,7 +39,7 @@ public class VetService {
         return vetRepository.findAll();
     }
 
-    public Optional<Vet> findByEmail(String email) {
+    public Vet findByEmail(String email) {
         return vetRepository.findByEmail(email);
     }
 }

@@ -10,7 +10,5 @@ import java.util.List;
 public interface ClinicRepository extends JpaRepository<Clinic, Long> {
     List<Clinic> findByVets_Id(Long vetId);
 
-    List<Clinic> getClinicByAddress_Zip(int zip);
-
     List<Clinic> getClinicByAddress_City(String city);
 }
