@@ -2,6 +2,7 @@ package com.me.vetclinic.service;
 
 import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.PetOwner;
+import com.me.vetclinic.repository.AddressRepository;
 import com.me.vetclinic.repository.PetOwnerRepository;
 import com.me.vetclinic.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class PetOwnerService {
 
     private PetOwnerRepository petOwnerRepository;
     private PetRepository petRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
     public PetOwnerService(PetOwnerRepository petOwnerRepository, PetRepository petRepository) {
@@ -34,6 +36,7 @@ public class PetOwnerService {
     }
 
     public void updateUser(PetOwner petOwner) {
+        addressRepository.save(petOwner.getAddress());
         petOwnerRepository.save(petOwner);
     }
 
