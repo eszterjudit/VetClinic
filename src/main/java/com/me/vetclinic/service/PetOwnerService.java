@@ -36,13 +36,12 @@ public class PetOwnerService {
     }
 
     public void updateUser(PetOwner petOwner) {
-        addressRepository.save(petOwner.getAddress());
         petOwnerRepository.save(petOwner);
     }
 
     public void addPet(Long petOwnerId, Pet pet) {
-        petRepository.save(pet);
         PetOwner petOwner = petOwnerRepository.findOne(petOwnerId);
+        petRepository.save(pet);
         petOwner.getPets().add(pet);
         petOwnerRepository.save(petOwner);
     }

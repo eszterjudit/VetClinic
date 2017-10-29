@@ -38,7 +38,9 @@ public class VetRestController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{vetId}")
     public ResponseEntity<?> updateVet(@PathVariable("vetId") long vetId, @RequestBody Vet vet) {
+        Vet fetchedVet = getVet(vetId);
         vet.setId(vetId);
+        vet.setClinics(fetchedVet.getClinics());
         vetService.updateVet(vet);
         return new ResponseEntity<>(vet, HttpStatus.OK);
     }

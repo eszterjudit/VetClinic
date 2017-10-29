@@ -46,7 +46,9 @@ public class PetOwnerRestController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{petOwnerId}")
     public ResponseEntity<?> updatePetOwner(@PathVariable("petOwnerId") long petOwnerId, @RequestBody PetOwner petOwner) {
+        PetOwner fetchedPetOwner = getPetOwner(petOwnerId);
         petOwner.setId(petOwnerId);
+        petOwner.setPets(fetchedPetOwner.getPets());
         petOwnerService.updateUser(petOwner);
         return new ResponseEntity<>(petOwner, HttpStatus.OK);
     }

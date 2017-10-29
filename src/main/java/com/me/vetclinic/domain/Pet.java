@@ -1,13 +1,11 @@
 package com.me.vetclinic.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.me.vetclinic.util.JsonDateDeserializer;
 import com.me.vetclinic.util.JsonDateSerializer;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
