@@ -45,10 +45,6 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         pet.setType(PetType.CAT);
         pet.setWeight(3.1);
         pet.setDateOfBirth(calendar.getTime());
-        petRepository.save(pet);
-        log.info(petRepository.findOne((long) 1));
-        List<Pet> pets = new ArrayList<>();
-        pets.add(pet);
 
         Address address = new Address();
         address.setStreet("sdhagd 2");
@@ -60,7 +56,13 @@ public class Loader implements ApplicationListener<ContextRefreshedEvent> {
         petOwner.setPhone("1234567");
         petOwner.setAddress(address);
 
+        pet.setPetOwner(petOwner);
+
+        List<Pet> pets = new ArrayList<>();
+        pets.add(pet);
+
         petOwner.setPets(pets);
+
         log.info(petOwnerRepository.save(petOwner));
 
         log.info("Pet owner population finished");

@@ -1,5 +1,6 @@
 package com.me.vetclinic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.me.vetclinic.util.JsonDateDeserializer;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+@Table
 @Entity
 public class Pet {
 
@@ -24,7 +26,8 @@ public class Pet {
     @JsonDeserialize(using=JsonDateDeserializer.class)
     private Date dateOfBirth;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne
     private PetOwner petOwner;
 
     public Long getId() {

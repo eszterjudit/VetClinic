@@ -1,9 +1,12 @@
 package com.me.vetclinic.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table
 @Entity
 public class PetOwner extends User {
 
@@ -11,7 +14,7 @@ public class PetOwner extends User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petOwner", orphanRemoval = true)
     private List<Pet> pets = new ArrayList<>();
 
     public Long getId() {
