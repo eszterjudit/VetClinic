@@ -10,12 +10,12 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@Table
 @Entity
 public class Pet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="pet_generator", sequenceName="pet_sequence", initialValue = 16)
+    @GeneratedValue(generator = "pet_generator")
     private Long id;
 
     @Enumerated(EnumType.STRING)
