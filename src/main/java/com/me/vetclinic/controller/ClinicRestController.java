@@ -59,7 +59,7 @@ public class ClinicRestController {
         return clinicService.findById(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{city}")
+    @RequestMapping(method = RequestMethod.GET, value = "/by/{city}")
     List<Clinic> getClinicsByCity(@PathVariable String city) {
         return clinicService.findByCity(city);
     }
