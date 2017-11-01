@@ -12,18 +12,18 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests() //
-                .anyRequest().authenticated() //
-                .and().requestCache().requestCache(new NullRequestCache()) //
-                .and().httpBasic() //
+        http.authorizeRequests()
+                .anyRequest().authenticated()
+                .and().requestCache().requestCache(new NullRequestCache())
+                .and().httpBasic()
                 .and().csrf().disable();
     }
 
     @Autowired
     void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication() //
-                .withUser("jack.jonson@email.com").password("password").authorities("ROLE_USER") //
-                .and() //
-                .withUser("vet@email.com").password("password").authorities("ROLE_USER");
+        auth.inMemoryAuthentication()
+                .withUser("jack.jonson@email.com").password("password").authorities("ROLE_USER")
+                .and()
+                .withUser("seth.barrett@email.com").password("password").authorities("ROLE_USER");
     }
 }

@@ -41,9 +41,10 @@ public class PetOwnerService {
 
     public void addPet(Long petOwnerId, Pet pet) {
         PetOwner petOwner = petOwnerRepository.findOne(petOwnerId);
+        pet.setPetOwner(petOwner);
         petRepository.save(pet);
-        petOwner.getPets().add(pet);
-        petOwnerRepository.save(petOwner);
+        //petOwner.getPets().add(pet);
+        //petOwnerRepository.save(petOwner);
     }
 
     public void deletePet(Long petOwnerId, Pet pet) {

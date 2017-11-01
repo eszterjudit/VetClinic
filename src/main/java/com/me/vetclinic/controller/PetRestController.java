@@ -31,8 +31,6 @@ public class PetRestController {
         if (pet == null) {
             return new ResponseEntity<Pet>(HttpStatus.NOT_FOUND);
         }
-        //PetOwner petOwner = pet.getPetOwner();
-        //petOwnerService.deletePet(petOwner.getId(), pet);
         petService.deletePet(pet);
         return new ResponseEntity<Pet>(HttpStatus.NO_CONTENT);
     }
