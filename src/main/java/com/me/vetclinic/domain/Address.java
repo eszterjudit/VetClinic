@@ -6,13 +6,20 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ADDRESS_ID")
+    @SequenceGenerator(name="address_generator", sequenceName="address_sequence", initialValue = 12)
+    @GeneratedValue(generator = "address_generator")
     private Long id;
 
+    @Column(nullable = false)
     private String country;
+
+    @Column(nullable = false)
     private String city;
+
+    @Column(nullable = false)
     private String street;
+
+    @Column(nullable = false)
     private String zip;
 
     public Long getId() {

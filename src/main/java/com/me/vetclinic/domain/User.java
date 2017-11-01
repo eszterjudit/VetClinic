@@ -5,10 +5,19 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String phone;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 

@@ -5,24 +5,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
 public class Vet extends User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
+    @SequenceGenerator(name="vet_generator", sequenceName="vet_sequence", initialValue = 7)
+    @GeneratedValue(generator = "vet_generator")
+    @Column(name = "VET_ID")
     private Long id;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PetTypes", joinColumns = @JoinColumn(name = "id"))
-    @Enumerated(EnumType.STRING)
-    private List<PetType> speciality;
+    @ElementCollection(targetClass = PetType.class)
+    @CollectionTable(
+            name="specialities",
+            joinColumns=@JoinColumn(name="VET_ID")
+    )
+    @Column(name = "PET_TYPE_ID")
+    private Set<PetType> speciality;
 
+    /*
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VET_CLINIC", joinColumns = {@JoinColumn(name = "VET_ID")}, inverseJoinColumns = {@JoinColumn(name = "CLINIC_ID")})
+    */
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "vets")
     private List<Clinic> clinics = new ArrayList<>();
 
     public Long getId() {
@@ -33,11 +41,11 @@ public class Vet extends User {
         this.id = id;
     }
 
-    public List<PetType> getSpeciality() {
+    public Set<PetType> getSpeciality() {
         return speciality;
     }
 
-    public void setSpeciality(List<PetType> speciality) {
+    public void setSpeciality(Set<PetType> speciality) {
         this.speciality = speciality;
     }
 
@@ -54,7 +62,7 @@ public class Vet extends User {
         return "Vet{" +
                 "id=" + id +
                 ", speciality=" + speciality +
-                ", clinics=" + clinics.stream().map(clinic -> clinic.getName()).collect(Collectors.toList()) +
+                ", clinics=" + clinics.stream().map(clinic -> clinic.getClinicName()).collect(Collectors.toList()) +
                 '}';
     }
 }

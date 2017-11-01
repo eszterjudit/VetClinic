@@ -18,12 +18,20 @@ public class Pet {
     @GeneratedValue(generator = "pet_generator")
     private Long id;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private PetType type;
-    private String name;
-    private double weight;
+    private PetType petType;
+
+    @Column(nullable = false)
+    private String petName;
+
+    @Column(nullable = false)
+    private double petWeight;
+
+    @Column(nullable = false)
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     @JsonIgnore
@@ -38,28 +46,28 @@ public class Pet {
         this.id = id;
     }
 
-    public PetType getType() {
-        return type;
+    public PetType getPetType() {
+        return petType;
     }
 
-    public void setType(PetType type) {
-        this.type = type;
+    public void setPetType(PetType petType) {
+        this.petType = petType;
     }
 
-    public String getName() {
-        return name;
+    public String getPetName() {
+        return petName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPetName(String petName) {
+        this.petName = petName;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getPetWeight() {
+        return petWeight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setPetWeight(double petWeight) {
+        this.petWeight = petWeight;
     }
 
     public Date getDateOfBirth() {
@@ -82,9 +90,9 @@ public class Pet {
     public String toString() {
         return "Pet{" +
                 "id=" + id +
-                ", type=" + type +
-                ", name='" + name + '\'' +
-                ", weight=" + weight +
+                ", petType=" + petType +
+                ", petName='" + petName + '\'' +
+                ", petWeight=" + petWeight +
                 ", dateOfBirth=" + dateOfBirth +
                 '}';
     }
@@ -96,15 +104,15 @@ public class Pet {
 
         Pet pet = (Pet) o;
 
-        if (Double.compare(pet.weight, weight) != 0) return false;
+        if (Double.compare(pet.petWeight, petWeight) != 0) return false;
         if (id != null ? !id.equals(pet.id) : pet.id != null) return false;
-        if (type != pet.type) return false;
-        if (name != null ? !name.equals(pet.name) : pet.name != null) return false;
+        if (petType != pet.petType) return false;
+        if (petName != null ? !petName.equals(pet.petName) : pet.petName != null) return false;
         return dateOfBirth != null ? dateOfBirth.equals(pet.dateOfBirth) : pet.dateOfBirth == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, dateOfBirth, weight, type);
+        return Objects.hash(petName, id, dateOfBirth, petWeight, petType);
     }
 }

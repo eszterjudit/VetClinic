@@ -1,17 +1,15 @@
 package com.me.vetclinic.domain;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table
 @Entity
 public class PetOwner extends User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="petowner_generator", sequenceName="petowner_sequence", initialValue = 6)
+    @GeneratedValue(generator = "petowner_generator")
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "petOwner", orphanRemoval = true)

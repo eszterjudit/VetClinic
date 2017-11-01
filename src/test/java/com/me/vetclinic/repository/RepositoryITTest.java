@@ -10,10 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -60,7 +57,7 @@ public class RepositoryITTest {
         assertEquals(fetchedClinic, clinic1);
 
         // update
-        fetchedClinic.setName("updated name");
+        fetchedClinic.setClinicName("updated name");
         clinicRepository.save(fetchedClinic);
         Clinic updatedClinic = clinicRepository.findOne(fetchedClinic.getId());
         assertEquals(updatedClinic, fetchedClinic);
@@ -89,7 +86,7 @@ public class RepositoryITTest {
         List<Clinic> clinicsForVet = clinicRepository.findByVets_Id(vet1.getId());
 
         assertEquals(1, clinicsForVet.size());
-        assertEquals(clinicsForVet.get(0).getName(), clinic1.getName());
+        assertEquals(clinicsForVet.get(0).getClinicName(), clinic1.getClinicName());
 
         List<Clinic> noClinics = clinicRepository.findByVets_Id(vet2.getId());
 
@@ -208,7 +205,7 @@ public class RepositoryITTest {
         assertEquals(fetchedPet, pet1);
 
         // update
-        fetchedPet.setName("updatedpet");
+        fetchedPet.setPetName("updatedpet");
         petRepository.save(fetchedPet);
         Pet updatedPet = petRepository.findOne(fetchedPet.getId());
         assertEquals(updatedPet, fetchedPet);
@@ -247,15 +244,15 @@ public class RepositoryITTest {
         return vet2;
     }
 
-    public List<PetType> specialities1() {
-        List<PetType> specialities1 = new ArrayList<>();
+    public Set<PetType> specialities1() {
+        Set<PetType> specialities1 = new HashSet<>();
         specialities1.add(PetType.CAT);
         specialities1.add(PetType.DOG);
         return specialities1;
     }
 
-    public List<PetType> specialities2() {
-        List<PetType> specialities2 = new ArrayList<>();
+    public Set<PetType> specialities2() {
+        Set<PetType> specialities2 = new HashSet<>();
         specialities2.add(PetType.RODENT);
         specialities2.add(PetType.REPTILE);
         specialities2.add(PetType.BIRD);
@@ -264,7 +261,7 @@ public class RepositoryITTest {
 
     public Clinic clinic1() {
         Clinic clinic1 = new Clinic();
-        clinic1.setName("First Clinic");
+        clinic1.setClinicName("First Clinic");
         clinic1.setOpeningHour(openingHour());
         clinic1.setClosingHour(closingHour());
         clinic1.setAddress(address1());
@@ -273,7 +270,7 @@ public class RepositoryITTest {
 
     public Clinic clinic2() {
         Clinic clinic2 = new Clinic();
-        clinic2.setName("Second Clinic");
+        clinic2.setClinicName("Second Clinic");
         clinic2.setOpeningHour(openingHour());
         clinic2.setClosingHour(closingHour());
         clinic2.setAddress(address2());
@@ -336,18 +333,18 @@ public class RepositoryITTest {
 
     public Pet pet1() {
         Pet pet1 = new Pet();
-        pet1.setName("Bruno");
-        pet1.setType(PetType.CAT);
-        pet1.setWeight(3);
+        pet1.setPetName("Bruno");
+        pet1.setPetType(PetType.CAT);
+        pet1.setPetWeight(3);
         pet1.setDateOfBirth(birthday1());
         return pet1;
     }
 
     public Pet pet2() {
         Pet pet1 = new Pet();
-        pet1.setName("Kutya");
-        pet1.setType(PetType.DOG);
-        pet1.setWeight(10);
+        pet1.setPetName("Kutya");
+        pet1.setPetType(PetType.DOG);
+        pet1.setPetWeight(10);
         pet1.setDateOfBirth(birthday2());
         return pet1;
     }
