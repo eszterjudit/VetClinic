@@ -213,7 +213,7 @@ public class RepositoryITTest {
         // find pet by type
         PetType dogType = PetType.DOG;
 
-        List<Pet> petsByType = petRepository.findByType(dogType);
+        List<Pet> petsByType = petRepository.findByPetType(dogType);
 
         assertEquals(1, petsByType.size());
         assertTrue(petsByType.contains(pet2));
@@ -262,8 +262,8 @@ public class RepositoryITTest {
     public Clinic clinic1() {
         Clinic clinic1 = new Clinic();
         clinic1.setClinicName("First Clinic");
-        clinic1.setOpeningHour(openingHour());
-        clinic1.setClosingHour(closingHour());
+        clinic1.setOpeningHour("08:30");
+        clinic1.setClosingHour("16:00");
         clinic1.setAddress(address1());
         return clinic1;
     }
@@ -271,8 +271,8 @@ public class RepositoryITTest {
     public Clinic clinic2() {
         Clinic clinic2 = new Clinic();
         clinic2.setClinicName("Second Clinic");
-        clinic2.setOpeningHour(openingHour());
-        clinic2.setClosingHour(closingHour());
+        clinic2.setOpeningHour("08:30");
+        clinic2.setClosingHour("16:00");
         clinic2.setAddress(address2());
         return clinic2;
     }

@@ -25,12 +25,10 @@ public class Vet extends User {
     @Column(name = "PET_TYPE_ID")
     private Set<PetType> speciality;
 
-    /*
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VET_CLINIC", joinColumns = {@JoinColumn(name = "VET_ID")}, inverseJoinColumns = {@JoinColumn(name = "CLINIC_ID")})
-    */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "vets")
     private List<Clinic> clinics = new ArrayList<>();
 
     public Long getId() {

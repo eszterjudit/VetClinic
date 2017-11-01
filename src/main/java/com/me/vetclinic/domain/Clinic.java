@@ -1,13 +1,7 @@
 package com.me.vetclinic.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.me.vetclinic.util.JsonHourDeserializer;
-import com.me.vetclinic.util.JsonHourSerializer;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,25 +21,14 @@ public class Clinic {
     private Address address;
 
     @Column(nullable = false)
-    @JsonSerialize(using=JsonHourSerializer.class)
-    @JsonDeserialize(using=JsonHourDeserializer.class)
-    @Temporal(TemporalType.DATE)
-    private Date openingHour;
+    private String openingHour;
 
     @Column(nullable = false)
-    @JsonSerialize(using=JsonHourSerializer.class)
-    @JsonDeserialize(using=JsonHourDeserializer.class)
-    @Temporal(TemporalType.DATE)
-    private Date closingHour;
+    private String closingHour;
 
-    /*
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "VET_CLINIC", joinColumns = {@JoinColumn(name = "CLINIC_ID")}, inverseJoinColumns = {@JoinColumn(name = "VET_ID")})
-    */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "VET_CLINIC", joinColumns = {
-            @JoinColumn(name = "VET_ID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "CLINIC_ID", nullable = false, updatable = false) })
     private List<Vet> vets = new ArrayList<>();
 
     public Long getId() {
@@ -72,19 +55,19 @@ public class Clinic {
         this.address = address;
     }
 
-    public Date getOpeningHour() {
+    public String getOpeningHour() {
         return openingHour;
     }
 
-    public void setOpeningHour(Date openingHour) {
+    public void setOpeningHour(String openingHour) {
         this.openingHour = openingHour;
     }
 
-    public Date getClosingHour() {
+    public String getClosingHour() {
         return closingHour;
     }
 
-    public void setClosingHour(Date closingHour) {
+    public void setClosingHour(String closingHour) {
         this.closingHour = closingHour;
     }
 
