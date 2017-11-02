@@ -1,6 +1,7 @@
 package com.me.vetclinic.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
+@Data
 public class Vet extends User {
 
     @Id
@@ -31,36 +33,5 @@ public class Vet extends User {
     @JoinTable(name = "VET_CLINIC", joinColumns = {@JoinColumn(name = "VET_ID")}, inverseJoinColumns = {@JoinColumn(name = "CLINIC_ID")})
     private List<Clinic> clinics = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<PetType> getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(Set<PetType> speciality) {
-        this.speciality = speciality;
-    }
-
-    public List<Clinic> getClinics() {
-        return clinics;
-    }
-
-    public void setClinics(List<Clinic> clinics) {
-        this.clinics = clinics;
-    }
-
-    @Override
-    public String toString() {
-        return "Vet{" +
-                "id=" + id +
-                ", speciality=" + speciality +
-                ", clinics=" + clinics.stream().map(clinic -> clinic.getClinicName()).collect(Collectors.toList()) +
-                '}';
-    }
 }
