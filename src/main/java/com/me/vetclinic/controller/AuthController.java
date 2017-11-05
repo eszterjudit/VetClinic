@@ -81,11 +81,4 @@ public class AuthController {
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/registerPetOwner", method = RequestMethod.POST)
-    ResponseEntity<?> registerPetOwner(HttpServletRequest httpServletRequest, UriComponentsBuilder ucBuilder) {
-        PetOwner petOwner = new PetOwner();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/petOwner/{petOwnerId}").buildAndExpand(petOwner.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
 }
