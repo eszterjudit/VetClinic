@@ -27,8 +27,10 @@ public class ClinicRestController {
         this.vetRepository = vetRepository;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addClinic(@RequestBody Clinic clinic, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(method = RequestMethod.POST, value="/{vetId}")
+    ResponseEntity<?> addClinic(@RequestBody Clinic clinic, @PathVariable Long vetId, UriComponentsBuilder ucBuilder) {
+        Vet vet = vetRepository.findOne(vetId);
+        clinic.getVets().add(vet);
         clinicService.addClinic(clinic);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/clinic/{clinicId}").buildAndExpand(clinic.getId()).toUri());
