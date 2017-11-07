@@ -12,6 +12,7 @@ insert into address(id, country, city, street, zip) values(8, 'Hungary', 'Budape
 insert into address(id, country, city, street, zip) values(9, 'Hungary', 'Budapest', 'Lehel utca 43', '1135')
 insert into address(id, country, city, street, zip) values(10, 'Hungary', 'Budapest', 'Tartsay Vilmos u. 19', '1126')
 insert into address(id, country, city, street, zip) values(11, 'Hungary', 'Budapest', 'Chinoin u. 4', '1045')
+insert into address(id, country, city, street, zip) values(12, 'Hungary', 'Miskolc', 'Lévay József utca 1', '3529')
 
 -- PETOWNER
 
@@ -64,9 +65,10 @@ insert into specialities(VET_ID, pet_type_id) values(6, 0)
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(1, 'Böszi-Vet', 6, '09:00', '19:00')
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(2, 'Állatorvosi Rendelő a Sánta Kutyához', 7, '09:00', '12:00')
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(3, 'Kerületi Állatorvos', 8, '09:00', '12:00')
-insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(4, 'Budapesti Állatkórház', 9, '00:00', '24:00')
+insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(4, 'Budapesti Állatkórház', 9, '00:01', '23:59')
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(5, 'Buda-Vet', 10, '09:00', '19:00')
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(6, 'Újpest Mancsok', 11, '09:00', '21:00')
+insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) values(7, 'Népkerti Állatorvosi Rendelő', 12, '09:00', '19:00')
 
 -- JOIN VETS IN CLINICS
 
@@ -87,3 +89,5 @@ insert into VET_CLINIC(VET_ID, CLINIC_ID) values(6, 5)
 
 insert into VET_CLINIC(VET_ID, CLINIC_ID) values(3, 6)
 insert into VET_CLINIC(VET_ID, CLINIC_ID) values(4, 6)
+
+insert into VET_CLINIC(VET_ID, CLINIC_ID) values(4, 7)

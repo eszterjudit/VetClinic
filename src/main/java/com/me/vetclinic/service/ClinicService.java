@@ -8,13 +8,16 @@ import com.me.vetclinic.repository.VetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ClinicService {
+
+    public static final DateTimeFormatter TIME_PATTERN = DateTimeFormatter.ofPattern("HH:mm");
 
     private ClinicRepository clinicRepository;
     private VetRepository vetRepository;
@@ -37,10 +40,6 @@ public class ClinicService {
         return clinicRepository.findAll();
     }
 
-    public List<Clinic> findByCity(String city) {
-        return clinicRepository.getClinicByAddress_City(city);
-    }
-
     public void addVetToClinic(Long clinicId, Long vetId) {
         Clinic clinic = clinicRepository.findOne(clinicId);
         Vet vet = vetRepository.findOne(vetId);
@@ -56,16 +55,14 @@ public class ClinicService {
         clinicRepository.save(clinic);
     }
 
-    public Set<Clinic> findByPetType(PetType petType) {
-        List<Vet> allVets = vetRepository.findAll();
-        Set<Clinic> clinicsByType = new HashSet<>();
-        for(Vet vet : allVets) {
-            if(vet.getSpeciality().contains(petType)) {
-                clinicsByType.addAll(vet.getClinics());
-            }
-        }
+    public Set<PetType> getClinicTypes(Long clinicId) {
+        Clinic clinic = clinicRepository.findOne(clinicId);
+        return clinic.getVets().stream().map(vet -> vet.getSpeciality()).flatMap(speciality -> speciality.stream()).collect(Collectors.toSet());
+    }
 
-        return clinicsByType;
+    public boolean isClinicOpen(Long clinicId) {
+        Clinic clinic = clinicRepository.findOne(clinicId);
+        return LocalTime.parse(clinic.getOpeningHour(),TIME_PATTERN).isBefore(LocalTime.now()) && LocalTime.parse(clinic.getClosingHour(),TIME_PATTERN).isAfter(LocalTime.now());
     }
 
 }

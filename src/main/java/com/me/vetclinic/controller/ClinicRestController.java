@@ -1,7 +1,6 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
-import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.VetRepository;
@@ -13,12 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clinic")
@@ -57,35 +52,6 @@ public class ClinicRestController {
         return new ResponseEntity<>(clinic, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/{city}/{petType}/{onlyShowOpenClinics}")
-    List<Clinic> filterClinics(@PathVariable String city, @PathVariable PetType petType, @PathVariable boolean onlyShowOpenClinics) {
-        List<Clinic> allClinics = clinicService.findAll();
-        if(!city.isEmpty()) {
-            List<Clinic> clinicsByCity = clinicService.findByCity(city);
-            allClinics.clear();
-            allClinics.addAll(clinicsByCity);
-        }
-        if(petType != null) {
-            Set<Clinic> clinicsByPetType = clinicService.findByPetType(petType);
-            allClinics.clear();
-            allClinics.addAll(clinicsByPetType);
-        }
-        if(onlyShowOpenClinics == true) {
-            for(Iterator<Clinic> iterator = allClinics.iterator(); iterator.hasNext();) {
-                Clinic clinic = iterator.next();
-                LocalTime currentTime = LocalTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                LocalTime openingHour = LocalTime.parse(clinic.getOpeningHour(), formatter);
-                LocalTime closingHour = LocalTime.parse(clinic.getClosingHour(), formatter);
-                if(!(openingHour.isBefore(currentTime) && closingHour.isAfter(currentTime))) {
-                    iterator.remove();
-                }
-            }
-        }
-
-        return allClinics;
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}/vets")
     List<Vet> getClinicAllVets(@PathVariable Long clinicId) {
         return vetRepository.findByClinics_Id(clinicId);
@@ -96,14 +62,21 @@ public class ClinicRestController {
         return clinicService.findById(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/by/{city}")
-    List<Clinic> getClinicsByCity(@PathVariable String city) {
-        return clinicService.findByCity(city);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    List<Clinic> getAllClinics() {
-        return clinicService.findAll();
+    @RequestMapping(method = RequestMethod.GET, params = { "city", "petType", "onlyOpen" })
+    List<Clinic> getAllClinics(@RequestParam(value = "city", required = false) String city,
+                               @RequestParam(value = "petType", required = false) PetType petType,
+                               @RequestParam(value = "onlyOpen", required = false, defaultValue = "false") boolean onlyOpen) {
+        List<Clinic> allClinics = clinicService.findAll();
+        if(!city.isEmpty()) {
+            allClinics = allClinics.stream().filter(clinic -> clinic.getAddress().getCity().toLowerCase().equals(city.toLowerCase())).collect(Collectors.toList());
+        }
+        if(petType != null) {
+            allClinics = allClinics.stream().filter(clinic -> clinicService.getClinicTypes(clinic.getId()).contains(petType)).collect(Collectors.toList());
+        }
+        if(onlyOpen == true) {
+            allClinics = allClinics.stream().filter(clinic -> clinicService.isClinicOpen(clinic.getId())).collect(Collectors.toList());
+        }
+        return allClinics;
     }
 
 }
