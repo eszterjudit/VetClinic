@@ -2,6 +2,7 @@ package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
 import com.me.vetclinic.domain.Pet;
+import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.VetRepository;
 import com.me.vetclinic.service.ClinicService;
@@ -12,7 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/clinic")
@@ -49,6 +55,35 @@ public class ClinicRestController {
         clinicService.removeVetFromClinic(clinicId, vetId);
         Clinic clinic = clinicService.findById(clinicId);
         return new ResponseEntity<>(clinic, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/{city}/{petType}/{onlyShowOpenClinics}")
+    List<Clinic> filterClinics(@PathVariable String city, @PathVariable PetType petType, @PathVariable boolean onlyShowOpenClinics) {
+        List<Clinic> allClinics = clinicService.findAll();
+        if(!city.isEmpty()) {
+            List<Clinic> clinicsByCity = clinicService.findByCity(city);
+            allClinics.clear();
+            allClinics.addAll(clinicsByCity);
+        }
+        if(petType != null) {
+            Set<Clinic> clinicsByPetType = clinicService.findByPetType(petType);
+            allClinics.clear();
+            allClinics.addAll(clinicsByPetType);
+        }
+        if(onlyShowOpenClinics == true) {
+            for(Iterator<Clinic> iterator = allClinics.iterator(); iterator.hasNext();) {
+                Clinic clinic = iterator.next();
+                LocalTime currentTime = LocalTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                LocalTime openingHour = LocalTime.parse(clinic.getOpeningHour(), formatter);
+                LocalTime closingHour = LocalTime.parse(clinic.getClosingHour(), formatter);
+                if(!(openingHour.isBefore(currentTime) && closingHour.isAfter(currentTime))) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        return allClinics;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}/vets")
