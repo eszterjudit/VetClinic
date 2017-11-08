@@ -62,12 +62,12 @@ public class ClinicRestController {
         return clinicService.findById(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = { "city", "petType", "onlyOpen" })
+    @RequestMapping(method = RequestMethod.GET)
     List<Clinic> getAllClinics(@RequestParam(value = "city", required = false) String city,
                                @RequestParam(value = "petType", required = false) PetType petType,
                                @RequestParam(value = "onlyOpen", required = false, defaultValue = "false") boolean onlyOpen) {
         List<Clinic> allClinics = clinicService.findAll();
-        if(!city.isEmpty()) {
+        if(city != null && !city.isEmpty()) {
             allClinics = allClinics.stream().filter(clinic -> clinic.getAddress().getCity().toLowerCase().equals(city.toLowerCase())).collect(Collectors.toList());
         }
         if(petType != null) {
