@@ -1,7 +1,7 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
-import com.me.vetclinic.domain.Pet;
+import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.VetRepository;
 import com.me.vetclinic.service.ClinicService;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clinic")
@@ -61,14 +62,21 @@ public class ClinicRestController {
         return clinicService.findById(clinicId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/by/{city}")
-    List<Clinic> getClinicsByCity(@PathVariable String city) {
-        return clinicService.findByCity(city);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    List<Clinic> getAllClinics() {
-        return clinicService.findAll();
+    @RequestMapping(method = RequestMethod.GET, params = { "city", "petType", "onlyOpen" })
+    List<Clinic> getAllClinics(@RequestParam(value = "city", required = false) String city,
+                               @RequestParam(value = "petType", required = false) PetType petType,
+                               @RequestParam(value = "onlyOpen", required = false, defaultValue = "false") boolean onlyOpen) {
+        List<Clinic> allClinics = clinicService.findAll();
+        if(!city.isEmpty()) {
+            allClinics = allClinics.stream().filter(clinic -> clinic.getAddress().getCity().toLowerCase().equals(city.toLowerCase())).collect(Collectors.toList());
+        }
+        if(petType != null) {
+            allClinics = allClinics.stream().filter(clinic -> clinicService.getClinicTypes(clinic.getId()).contains(petType)).collect(Collectors.toList());
+        }
+        if(onlyOpen == true) {
+            allClinics = allClinics.stream().filter(clinic -> clinicService.isClinicOpen(clinic.getId())).collect(Collectors.toList());
+        }
+        return allClinics;
     }
 
 }
