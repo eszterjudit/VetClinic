@@ -8,14 +8,11 @@ import com.me.vetclinic.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class PetOwnerService {
 
     private PetOwnerRepository petOwnerRepository;
     private PetRepository petRepository;
-    private AddressRepository addressRepository;
 
     @Autowired
     public PetOwnerService(PetOwnerRepository petOwnerRepository, PetRepository petRepository) {
