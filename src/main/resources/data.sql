@@ -43,51 +43,51 @@ insert into pet(id, pet_type, pet_name, pet_weight, date_of_birth, pet_owner_id)
 -- VET
 
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 1, 'Victor', 'White', 'victor.white12@email.com', '06205463728', 1 from dual where not exists(select VET_ID from vet where VET_ID = 1)
-insert into specialities(VET_ID, pet_type_id) values(1, 0)
-insert into specialities(VET_ID, pet_type_id) values(1, 1)
+insert into specialities(VET_ID, pet_type_id) select 1, 0 from dual where not exists(select * from specialities where VET_ID = 1 and pet_type_id = 0)
+insert into specialities(VET_ID, pet_type_id) select 1, 1 from dual where not exists(select * from specialities where VET_ID = 1 and pet_type_id = 1)
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 2, 'Tracy', 'Reed', 'tracy.reed@email.com', '06305463732', 2 from dual where not exists(select VET_ID from vet where VET_ID = 2)
-insert into specialities(VET_ID, pet_type_id) values(2, 0)
-insert into specialities(VET_ID, pet_type_id) values(2, 1)
-insert into specialities(VET_ID, pet_type_id) values(2, 2)
+insert into specialities(VET_ID, pet_type_id) select 2, 0 from dual where not exists(select * from specialities where VET_ID = 2 and pet_type_id = 0)
+insert into specialities(VET_ID, pet_type_id) select 2, 1 from dual where not exists(select * from specialities where VET_ID = 2 and pet_type_id = 1)
+insert into specialities(VET_ID, pet_type_id) select 2, 2 from dual where not exists(select * from specialities where VET_ID = 2 and pet_type_id = 2)
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 3, 'Bill', 'Orbien', 'billorbien@email.com', '06701234567',3 from dual where not exists(select VET_ID from vet where VET_ID = 3)
-insert into specialities(VET_ID, pet_type_id) values(3, 2)
+insert into specialities(VET_ID, pet_type_id) select 3, 2 from dual where not exists(select * from specialities where VET_ID = 3 and pet_type_id = 2)
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 4, 'Ruben', 'Stone', 'ruben.stone33@email.com', '06204352601', 4 from dual where not exists(select VET_ID from vet where VET_ID = 4)
-insert into specialities(VET_ID, pet_type_id) values(4, 3)
-insert into specialities(VET_ID, pet_type_id) values(4, 4)
+insert into specialities(VET_ID, pet_type_id) select 4, 3 from dual where not exists(select * from specialities where VET_ID = 4 and pet_type_id = 3)
+insert into specialities(VET_ID, pet_type_id) select 4, 4 from dual where not exists(select * from specialities where VET_ID = 4 and pet_type_id = 4)
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 5, 'Seth', 'Barrett', 'seth.barrett@email.com', '2345677',5 from dual where not exists(select VET_ID from vet where VET_ID = 5)
-insert into specialities(VET_ID, pet_type_id) values(5, 4)
+insert into specialities(VET_ID, pet_type_id) select 5, 4 from dual where not exists(select * from specialities where VET_ID = 5 and pet_type_id = 4)
 insert into vet(VET_ID, first_name, last_name, email, phone, address_id) select 6, 'Cindy', 'Jackson', 'cindy.jackson123@email.com', '06304567890',6 from dual where not exists(select VET_ID from vet where VET_ID = 6)
-insert into specialities(VET_ID, pet_type_id) values(6, 0)
+insert into specialities(VET_ID, pet_type_id) select 6, 0 from dual where not exists(select * from specialities where VET_ID = 6 and pet_type_id = 0)
 
 
 -- CLINIC
 
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 1, 'Böszi-Vet', 6, '09:00', '19:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 1)
-insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 2, 'Állatorvosi Rendelő a Sánta Kutyához', 7, '09:00', '12:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 2)
+insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 2, 'Állatorvosi Rendelo a Sánta Kutyához', 7, '09:00', '12:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 2)
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 3, 'Kerületi Állatorvos', 8, '09:00', '12:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 3)
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 4, 'Budapesti Állatkórház', 9, '00:01', '23:59' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 4)
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 5, 'Buda-Vet', 10, '09:00', '19:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 5)
 insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 6, 'Újpest Mancsok', 11, '09:00', '21:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 6)
-insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 7, 'Népkerti Állatorvosi Rendelő', 12, '09:00', '19:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 7)
+insert into clinic(CLINIC_ID, clinic_name, address_id, opening_hour, closing_hour) select 7, 'Népkerti Állatorvosi Rendelo', 12, '09:00', '19:00' from dual where not exists(select CLINIC_ID from clinic where CLINIC_ID = 7)
 
 -- JOIN VETS IN CLINICS
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(1, 1)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(2, 1)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(3, 1)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 1, 1 from dual where not exists(select * from VET_CLINIC where VET_ID = 1 and CLINIC_ID = 1)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 2, 1 from dual where not exists(select * from VET_CLINIC where VET_ID = 2 and CLINIC_ID = 1)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 3, 1 from dual where not exists(select * from VET_CLINIC where VET_ID = 3 and CLINIC_ID = 1)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(4, 2)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 4, 2 from dual where not exists(select * from VET_CLINIC where VET_ID = 4 and CLINIC_ID = 2)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(1, 3)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(5, 3)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 1, 3 from dual where not exists(select * from VET_CLINIC where VET_ID = 1 and CLINIC_ID = 3)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 5, 3 from dual where not exists(select * from VET_CLINIC where VET_ID = 5 and CLINIC_ID = 3)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(5, 4)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(6, 4)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 5, 4 from dual where not exists(select * from VET_CLINIC where VET_ID = 5 and CLINIC_ID = 4)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 6, 4 from dual where not exists(select * from VET_CLINIC where VET_ID = 6 and CLINIC_ID = 4)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(2, 5)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(6, 5)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 2, 5 from dual where not exists(select * from VET_CLINIC where VET_ID = 2 and CLINIC_ID = 5)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 6, 5 from dual where not exists(select * from VET_CLINIC where VET_ID = 6 and CLINIC_ID = 5)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(3, 6)
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(4, 6)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 3, 6 from dual where not exists(select * from VET_CLINIC where VET_ID = 3 and CLINIC_ID = 6)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 4, 6 from dual where not exists(select * from VET_CLINIC where VET_ID = 4 and CLINIC_ID = 6)
 
-insert into VET_CLINIC(VET_ID, CLINIC_ID) values(4, 7)
+insert into VET_CLINIC(VET_ID, CLINIC_ID) select 4, 7 from dual where not exists(select * from VET_CLINIC where VET_ID = 4 and CLINIC_ID = 7)
