@@ -1,15 +1,16 @@
 package com.me.vetclinic.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 
-import java.util.Properties;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -26,10 +27,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager() {
-        final Properties users = new Properties();
-        users.put("jack.jonson@email.com","password,ROLE_USER");
-        users.put("seth.barrett@email.com","password,ROLE_USER");
-        return new InMemoryUserDetailsManager(users);
+    @Autowired
+    public UserDetailsManager jdbcUserDetailManager(DataSource dataSource) {
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
+        userDetailsManager.setDataSource(dataSource);
+        return userDetailsManager;
     }
 }
