@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 public class Clinic {
 
     @Id
-    @SequenceGenerator(name="clinic_generator", sequenceName="clinic_generator", initialValue = 8)
-    @GeneratedValue(generator = "clinic_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLINIC_ID")
     private Long id;
 

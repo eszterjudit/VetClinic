@@ -11,8 +11,7 @@ import java.util.List;
 public class PetOwner extends User {
 
     @Id
-    @SequenceGenerator(name="petowner_generator", sequenceName="petowner_sequence", initialValue = 6)
-    @GeneratedValue(generator = "petowner_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "petOwner", orphanRemoval = true)

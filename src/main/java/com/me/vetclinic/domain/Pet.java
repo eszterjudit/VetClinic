@@ -16,8 +16,7 @@ import java.util.Objects;
 public class Pet {
 
     @Id
-    @SequenceGenerator(name = "pet_generator", sequenceName = "pet_sequence", initialValue = 16)
-    @GeneratedValue(generator = "pet_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

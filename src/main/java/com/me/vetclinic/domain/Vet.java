@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 public class Vet extends User {
 
     @Id
-    @SequenceGenerator(name="vet_generator", sequenceName="vet_sequence", initialValue = 7)
-    @GeneratedValue(generator = "vet_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "VET_ID")
     private Long id;
 
