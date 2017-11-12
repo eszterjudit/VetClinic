@@ -1,16 +1,12 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Pet;
-import com.me.vetclinic.domain.PetOwner;
 import com.me.vetclinic.service.PetOwnerService;
 import com.me.vetclinic.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pet")
@@ -33,6 +29,14 @@ public class PetRestController {
         }
         petService.deletePet(pet);
         return new ResponseEntity<Pet>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{petId}")
+    public ResponseEntity<?> updatePet(@PathVariable("petId") long petId, @RequestBody Pet pet) {
+        Pet fetchedPet = getPet(petId);
+        pet.setId(petId);
+        petService.updatePet(pet);
+        return new ResponseEntity<>(pet, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{petId}")
