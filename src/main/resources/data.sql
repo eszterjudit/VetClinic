@@ -1,16 +1,16 @@
 -- CREATE TABLES FOR STORING USER CREDENTIALS
-drop table if exists users
-drop table if exists authorities
-CREATE TABLE users (USERNAME VARCHAR(50), PASSWORD VARCHAR(500), ENABLED boolean, PRIMARY KEY (USERNAME))
-CREATE TABLE authorities (USERNAME VARCHAR(50), AUTHORITY VARCHAR(20))
+--drop table if exists users
+--drop table if exists authorities
+--CREATE TABLE users (USERNAME VARCHAR(50), PASSWORD VARCHAR(500), ENABLED boolean, PRIMARY KEY (USERNAME))
+--CREATE TABLE authorities (USERNAME VARCHAR(50), AUTHORITY VARCHAR(20))
 
 -- INSERT SAMPLE PET OWNER
-insert into users(USERNAME, PASSWORD, ENABLED) values('jack.jonson@email.com', 'password', TRUE)
-insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'ROLE_USER')
+--insert into users(USERNAME, PASSWORD, ENABLED) values('jack.jonson@email.com', 'password', TRUE)
+--insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'ROLE_USER')
 
 -- INSERT SAMPLE VET
-insert into users(USERNAME, PASSWORD, ENABLED) values('seth.barrett@email.com', 'password', TRUE)
-insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'ROLE_USER')
+--insert into users(USERNAME, PASSWORD, ENABLED) values('seth.barrett@email.com', 'password', TRUE)
+--insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'ROLE_USER')
 
 -- ADDRESS
 
