@@ -35,6 +35,7 @@ public class PetRestController {
     public ResponseEntity<?> updatePet(@PathVariable("petId") long petId, @RequestBody Pet pet) {
         Pet fetchedPet = getPet(petId);
         pet.setId(petId);
+        pet.setPetOwner(fetchedPet.getPetOwner());
         petService.updatePet(pet);
         return new ResponseEntity<>(pet, HttpStatus.OK);
     }
