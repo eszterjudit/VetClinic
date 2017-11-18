@@ -33,16 +33,11 @@ public class PetRestController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{petId}")
     public ResponseEntity<?> updatePet(@PathVariable("petId") long petId, @RequestBody Pet pet) {
-        Pet fetchedPet = getPet(petId);
+        Pet fetchedPet = petService.findById(petId);
         pet.setId(petId);
         pet.setPetOwner(fetchedPet.getPetOwner());
         petService.updatePet(pet);
         return new ResponseEntity<>(pet, HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{petId}")
-    Pet getPet(@PathVariable Long petId) {
-        return petService.findById(petId);
     }
 
 }

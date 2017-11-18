@@ -1,17 +1,13 @@
 package com.me.vetclinic.controller;
 
 import com.me.vetclinic.domain.Clinic;
-import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
 import com.me.vetclinic.repository.ClinicRepository;
 import com.me.vetclinic.service.VetService;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -28,14 +24,6 @@ public class VetRestController {
         this.clinicRepository = clinicRepository;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> addVet(@RequestBody Vet vet, UriComponentsBuilder ucBuilder) {
-        vetService.addVet(vet);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/vet/{vetId}").buildAndExpand(vet.getId()).toUri());
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-
     @RequestMapping(method = RequestMethod.PUT, value = "/{vetId}")
     public ResponseEntity<?> updateVet(@PathVariable("vetId") long vetId, @RequestBody Vet vet) {
         Vet fetchedVet = getVet(vetId);
@@ -50,19 +38,9 @@ public class VetRestController {
         return clinicRepository.findByVets_Id(vetId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/speciality/{petType}")
-    List<Vet> getVetsBySpeciality(@PathVariable PetType type) {
-        return vetService.findBySpeciality(type);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "/{vetId}")
     Vet getVet(@PathVariable Long vetId) {
         return vetService.findById(vetId);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/")
-    List<Vet> getAllvets() {
-        return vetService.findAll();
     }
 
 }

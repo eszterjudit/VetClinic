@@ -52,16 +52,6 @@ public class ClinicRestController {
         return new ResponseEntity<>(clinic, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}/vets")
-    List<Vet> getClinicAllVets(@PathVariable Long clinicId) {
-        return vetRepository.findByClinics_Id(clinicId);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{clinicId}")
-    Clinic getClinic(@PathVariable Long clinicId) {
-        return clinicService.findById(clinicId);
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     List<Clinic> getAllClinics(@RequestParam(value = "city", required = false) String city,
                                @RequestParam(value = "petType", required = false) PetType petType,
