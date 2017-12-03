@@ -1,8 +1,22 @@
 -- CREATE TABLES FOR STORING USER CREDENTIALS
 drop table if exists users
 drop table if exists authorities
+drop table if exists address
+drop table if exists pet_owner
+drop table if exists pet
+drop table if exists specialities
+drop table if exists clinic
+drop table if exists vet
+
 CREATE TABLE users (USERNAME VARCHAR(50), PASSWORD VARCHAR(500), ENABLED boolean, PRIMARY KEY (USERNAME))
 CREATE TABLE authorities (USERNAME VARCHAR(50), AUTHORITY VARCHAR(20))
+CREATE TABLE address (id int NOT NULL, country varchar(100), city varchar(100), city varchar(100), street varchar(100), zip varchar(100) PRIMARY KEY (id))
+CREATE TABLE pet_owner (id int NOT NULL, first_name VARCHAR(100), last_name VARCHAR(100), email VARCHAR(100), phone VARCHAR(100), address_id int, PRIMARY KEY (id), FOREIGN KEY (address_id) REFERENCES address(id))
+CREATE TABLE pet (id int NOT NULL, pet_type VARCHAR(100), pet_name VARCHAR(100), pet_weight FLOAT(3), date_of_birth VARCHAR(10), pet_owner_id int, PRIMARY KEY (id), FOREIGN KEY (pet_owner_id) REFERENCES pet_owner(id))
+CREATE TABLE specialities(FOREIGN KEY (VET_ID) REFERENCES vet(VET_ID), pet_type_id int NOT NULL)
+CREATE TABLE clinic(CLINIC_ID int NOT NULL , clinic_name VARCHAR(100), address_id int, opening_hour VARCHAR(100), closing_hour VARCHAR(100), PRIMARY KEY(CLINIC_ID), FOREIGN KEY(address_id) REFERENCES address(id))
+CREATE TABLE vet(VET_ID int NOT NULL, first_name VARCHAR(100), last_name VARCHAR(100), email VARCHAR(100), phone VARCHAR(100), address_id int, PRIMARY KEY(VET_ID), FOREIGN KEY(address_id) REFERENCES address(id))
+CREATE TABLE VET_CLINIC(VET_ID int NOT NULL, CLINIC_ID int NOT NULL, FOREIGN KEY(VET_ID) REFERENCES vet(VET_ID), FOREIGN KEY(CLINIC_ID) REFERENCES clinic(CLINIC_ID))
 
 -- INSERT SAMPLE PET OWNER
 insert into users(USERNAME, PASSWORD, ENABLED) values('jack.jonson@email.com', 'password', TRUE)
