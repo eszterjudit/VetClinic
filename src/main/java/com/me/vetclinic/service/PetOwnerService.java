@@ -2,7 +2,6 @@ package com.me.vetclinic.service;
 
 import com.me.vetclinic.domain.Pet;
 import com.me.vetclinic.domain.PetOwner;
-import com.me.vetclinic.repository.AddressRepository;
 import com.me.vetclinic.repository.PetOwnerRepository;
 import com.me.vetclinic.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;

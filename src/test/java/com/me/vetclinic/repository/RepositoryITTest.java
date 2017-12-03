@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,9 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RepositoryConfiguration.class)
+@SpringBootTest(classes = {RepositoryConfiguration.class})
 @Transactional
+@ActiveProfiles("test")
 public class RepositoryITTest {
 
     @Autowired ClinicRepository clinicRepository;
@@ -36,10 +38,10 @@ public class RepositoryITTest {
 
     @Before
     public void save() {
-        clinicRepository.save(clinic1);
-        clinicRepository.save(clinic2);
         vetRepository.save(vet1);
         vetRepository.save(vet2);
+        clinicRepository.save(clinic1);
+        clinicRepository.save(clinic2);
         petOwnerRepository.save(petOwner1);
         petOwnerRepository.save(petOwner2);
         petRepository.save(pet1);

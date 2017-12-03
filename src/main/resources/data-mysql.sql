@@ -10,7 +10,7 @@ insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'RO
 
 -- INSERT SAMPLE VET
 insert into users(USERNAME, PASSWORD, ENABLED) values('seth.barrett@email.com', 'password', TRUE)
-insert into authorities(USERNAME, AUTHORITY) values('jack.jonson@email.com', 'ROLE_USER')
+insert into authorities(USERNAME, AUTHORITY) values('seth.barrett@email.com', 'ROLE_USER')
 
 -- ADDRESS
 

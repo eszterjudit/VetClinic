@@ -1,11 +1,11 @@
 package com.me.vetclinic.repository;
 
-import com.me.vetclinic.domain.*;
+import com.me.vetclinic.domain.PetType;
+import com.me.vetclinic.domain.Vet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface VetRepository extends JpaRepository<Vet, Long> {
