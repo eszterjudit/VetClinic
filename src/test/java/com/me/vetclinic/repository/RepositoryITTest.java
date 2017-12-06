@@ -189,8 +189,6 @@ public class RepositoryITTest {
         petOwner1.setPets(petList);
         petRepository.delete(pet1.getId());
 
-        assertFalse(petRepository.exists(pet1.getId()));
-
         assertEquals(1, petOwnerRepository.getOne(petOwner1.getId()).getPets().size());
         assertEquals(pet2, petOwnerRepository.getOne(petOwner1.getId()).getPets().get(0));
 

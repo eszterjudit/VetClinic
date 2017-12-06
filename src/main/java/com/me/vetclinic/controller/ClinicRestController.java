@@ -3,8 +3,8 @@ package com.me.vetclinic.controller;
 import com.me.vetclinic.domain.Clinic;
 import com.me.vetclinic.domain.PetType;
 import com.me.vetclinic.domain.Vet;
-import com.me.vetclinic.repository.VetRepository;
 import com.me.vetclinic.service.ClinicService;
+import com.me.vetclinic.service.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,17 +20,17 @@ import java.util.stream.Collectors;
 public class ClinicRestController {
 
     private ClinicService clinicService;
-    private VetRepository vetRepository;
+    private VetService vetService;
 
     @Autowired
-    public ClinicRestController(ClinicService clinicService, VetRepository vetRepository) {
+    public ClinicRestController(ClinicService clinicService, VetService vetService) {
         this.clinicService = clinicService;
-        this.vetRepository = vetRepository;
+        this.vetService = vetService;
     }
 
     @RequestMapping(method = RequestMethod.POST, value="/{vetId}")
     ResponseEntity<?> addClinic(@RequestBody Clinic clinic, @PathVariable Long vetId, UriComponentsBuilder ucBuilder) {
-        Vet vet = vetRepository.findOne(vetId);
+        Vet vet = vetService.findById(vetId);
         clinic.getVets().add(vet);
         clinicService.addClinic(clinic);
         HttpHeaders headers = new HttpHeaders();
